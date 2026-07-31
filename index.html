@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>STAY OR PAY — Stay focused, or pay.</title>
+    <title>STAY OR PAY — Stay focused. Or pay.</title>
     <meta
       name="description"
-      content="STAY OR PAY helps you stay focused by turning your goals into real commitments. Create a focus session, stay until the timer ends, and keep your commitment."
+      content="STAY OR PAY turns your focus sessions into real commitments. Set a timer, stay until it ends, and keep your word. Coming soon to Google Play."
     />
     <meta
       name="keywords"
@@ -14,96 +14,252 @@
     />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://stayorpay.app/" />
+
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="STAY OR PAY" />
     <meta property="og:url" content="https://stayorpay.app/" />
-    <meta property="og:title" content="STAY OR PAY — Stay focused, or pay." />
+    <meta property="og:title" content="STAY OR PAY — Stay focused. Or pay." />
     <meta
       property="og:description"
-      content="STAY OR PAY helps you stay focused by turning your goals into real commitments. Create a focus session, stay until the timer ends, and keep your commitment."
+      content="STAY OR PAY turns your focus sessions into real commitments. Set a timer, stay until it ends, and keep your word."
     />
     <meta property="og:image" content="https://stayorpay.app/assets/images/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="STAY OR PAY" />
     <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="he_IL" />
+
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="STAY OR PAY — Stay focused, or pay." />
+    <meta name="twitter:title" content="STAY OR PAY — Stay focused. Or pay." />
     <meta
       name="twitter:description"
-      content="STAY OR PAY helps you stay focused by turning your goals into real commitments. Create a focus session, stay until the timer ends, and keep your commitment."
+      content="STAY OR PAY turns your focus sessions into real commitments. Set a timer, stay until it ends, and keep your word."
     />
     <meta name="twitter:image" content="https://stayorpay.app/assets/images/og-image.png" />
-    <meta name="theme-color" content="#11bcac" />
+
+    <meta name="theme-color" content="#0A0A0F" />
     <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/assets/icons/icon-192.png" type="image/png" sizes="192x192" />
     <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.json" />
+
     <link rel="stylesheet" href="/assets/css/style.css" />
   </head>
-  <body>
-    <main class="site-shell">
-      <section class="hero" aria-labelledby="brand-title">
-        <img
-          class="hero-logo"
-          src="/assets/images/logo.svg"
-          width="96"
-          height="96"
-          alt="STAY OR PAY logo"
-        />
-        <h1 id="brand-title">STAY OR PAY</h1>
-        <p class="hero-tagline">Stay focused, or pay.</p>
-      </section>
+  <body class="page-landing">
+    <a class="skip-link" href="#main">Skip to content</a>
 
-      <section class="hero-pitch" aria-labelledby="hero-headline">
-        <h2 id="hero-headline" data-i18n="hero-headline">
-          Turn your commitment into a real commitment.
-        </h2>
-        <p data-i18n="hero-paragraph">
-          STAY OR PAY helps you stay focused by turning your goals into real commitments.
-          Create a focus session, stay until the timer ends, and keep your commitment.
-        </p>
-        <button class="cta-button" type="button" disabled aria-disabled="true">
-          <span data-i18n="cta-label">Coming soon on Google Play</span>
-        </button>
-      </section>
+    <header class="landing-header" id="top">
+      <div class="landing-header__inner">
+        <a class="brand" href="/" aria-label="STAY OR PAY home">
+          <img
+            class="brand-logo"
+            src="/assets/images/logo.svg"
+            width="40"
+            height="40"
+            alt=""
+          />
+          <span class="brand-name">STAY OR PAY</span>
+        </a>
 
-      <section class="content-section" aria-labelledby="about-title">
-        <h2 id="about-title" data-i18n="about-title">About STAY OR PAY</h2>
-        <p data-i18n="about-p1">
-          STAY OR PAY is a focus and accountability platform designed to help people stay
-          committed to what matters most.
-        </p>
-        <p data-i18n="about-p2">
-          Whether you are studying, working, exercising or building a business, STAY OR PAY helps
-          you stay focused until your commitment is complete.
-        </p>
-      </section>
-
-      <section class="content-section contact-section" aria-labelledby="contact-title">
-        <h2 id="contact-title" data-i18n="contact-title">Contact</h2>
-        <p class="contact-copy">
-          <span data-i18n="contact-intro">For support or privacy-related questions:</span>
-          <a href="mailto:support@stayorpay.app">support@stayorpay.app</a>
-        </p>
-      </section>
-
-      <footer class="site-footer">
-        <p>&copy; 2026 STAY OR PAY.<br />All rights reserved.</p>
-        <nav class="footer-links" aria-label="Legal documents">
-          <a data-doc-link="privacy" href="/privacy/en/" data-i18n="footer-privacy">
-            Privacy Policy
-          </a>
-          <a data-doc-link="terms" href="/terms/en/" data-i18n="footer-terms">
-            Terms of Service
-          </a>
-          <a data-doc-link="data-deletion" href="/data-deletion/en/" data-i18n="footer-data-deletion">
-            Data Deletion Policy
-          </a>
+        <nav class="landing-nav" aria-label="Primary">
+          <a class="landing-nav__link" href="#why" data-i18n="nav.about">About</a>
+          <a class="landing-nav__link" href="#how-it-works" data-i18n="nav.howItWorks">How it works</a>
+          <a class="landing-nav__link" href="#contact" data-i18n="nav.contact">Contact</a>
+          <a class="landing-nav__link" data-doc-link="privacy" href="/privacy/en/" data-i18n="nav.privacy">Privacy</a>
+          <a class="landing-nav__link" data-doc-link="terms" href="/terms/en/" data-i18n="nav.terms">Terms</a>
         </nav>
-      </footer>
+
+        <nav class="lang-switch" aria-label="Language">
+          <button type="button" class="lang-switch__btn is-active" data-set-locale="en" aria-pressed="true">EN</button>
+          <span class="lang-switch__sep" aria-hidden="true">|</span>
+          <button type="button" class="lang-switch__btn" data-set-locale="he" aria-pressed="false">HE</button>
+        </nav>
+      </div>
+
+      <nav class="landing-nav-mobile" aria-label="Primary mobile">
+        <a class="landing-nav-mobile__link" href="#why" data-i18n="nav.about">About</a>
+        <a class="landing-nav-mobile__link" href="#how-it-works" data-i18n="nav.howItWorks">How it works</a>
+        <a class="landing-nav-mobile__link" href="#contact" data-i18n="nav.contact">Contact</a>
+        <a class="landing-nav-mobile__link" data-doc-link="privacy" href="/privacy/en/" data-i18n="nav.privacy">Privacy</a>
+        <a class="landing-nav-mobile__link" data-doc-link="terms" href="/terms/en/" data-i18n="nav.terms">Terms</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="hero" aria-labelledby="hero-heading">
+        <div class="hero__content">
+          <p class="eyebrow" data-i18n="hero.eyebrow">A real commitment to focus</p>
+          <h1 class="hero__title" id="hero-heading" data-i18n-html="hero.headline">
+            Stay focused.<br />Or pay.
+          </h1>
+          <p class="hero__subtitle" data-i18n-html="hero.subheadline">
+            STAY OR PAY turns your focus sessions into real commitments.<br />
+            Set a timer, stay until it ends, and keep your word.
+          </p>
+          <div class="hero__actions">
+            <span
+              class="btn btn-primary"
+              role="status"
+              aria-label="Coming soon on Google Play"
+              data-i18n="hero.ctaPrimary"
+            >Coming soon on Google Play</span>
+            <a class="btn btn-secondary" href="#how-it-works" data-i18n="hero.ctaSecondary">See how it works</a>
+          </div>
+        </div>
+
+        <div class="product-visual" id="product" aria-label="App preview">
+          <div class="product-visual__stage">
+            <figure class="phone-mockup phone-mockup--back phone-mockup--left" aria-hidden="true">
+              <div class="phone-mockup__frame">
+                <div class="phone-mockup__screen">
+                  <div class="app-screen app-screen--focus">
+                    <p class="app-screen__label" data-i18n="mockup.focusLabel">Focus session</p>
+                    <p class="app-screen__timer">24:37</p>
+                    <p class="app-screen__commitment" data-i18n="mockup.commitment">Finish my study session</p>
+                  </div>
+                </div>
+              </div>
+            </figure>
+
+            <figure class="phone-mockup phone-mockup--center">
+              <figcaption class="visually-hidden" data-i18n="mockup.homeCaption">STAY OR PAY home screen</figcaption>
+              <div class="phone-mockup__frame">
+                <div class="phone-mockup__screen">
+                  <div class="app-screen app-screen--home">
+                    <p class="app-screen__brand">
+                      <span>STAY OR </span><span class="app-screen__brand-accent">PAY</span>
+                    </p>
+                    <p class="app-screen__tagline" data-i18n="mockup.tagline">Stay focused. Or pay the price.</p>
+                    <p class="app-screen__step" data-i18n="mockup.stepTime">Choose time</p>
+                    <div class="app-screen__pills">
+                      <span class="app-pill app-pill--active">25 min</span>
+                      <span class="app-pill">45 min</span>
+                      <span class="app-pill">1 hr</span>
+                    </div>
+                    <div class="app-screen__cta" data-i18n="mockup.continue">Continue</div>
+                  </div>
+                </div>
+              </div>
+            </figure>
+
+            <figure class="phone-mockup phone-mockup--back phone-mockup--right" aria-hidden="true">
+              <div class="phone-mockup__frame">
+                <div class="phone-mockup__screen">
+                  <div class="app-screen app-screen--complete">
+                    <p class="app-screen__complete-title" data-i18n="mockup.completeTitle">Session complete</p>
+                    <p class="app-screen__complete-stat">+25 min</p>
+                    <p class="app-screen__complete-sub" data-i18n="mockup.completeSub">Life reclaimed</p>
+                  </div>
+                </div>
+              </div>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--steps" id="how-it-works" aria-labelledby="how-heading">
+        <div class="section__inner">
+          <h2 class="section__title" id="how-heading" data-i18n="how.title">How it works</h2>
+          <ol class="steps-list">
+            <li class="steps-list__item">
+              <span class="steps-list__number" aria-hidden="true">01</span>
+              <div class="steps-list__body">
+                <h3 class="steps-list__heading" data-i18n="how.step1.title">Set your commitment</h3>
+                <p class="steps-list__text" data-i18n="how.step1.text">Choose how long you want to stay focused.</p>
+              </div>
+            </li>
+            <li class="steps-list__item">
+              <span class="steps-list__number" aria-hidden="true">02</span>
+              <div class="steps-list__body">
+                <h3 class="steps-list__heading" data-i18n="how.step2.title">Start the session</h3>
+                <p class="steps-list__text" data-i18n="how.step2.text">Your timer begins and your commitment becomes real.</p>
+              </div>
+            </li>
+            <li class="steps-list__item">
+              <span class="steps-list__number" aria-hidden="true">03</span>
+              <div class="steps-list__body">
+                <h3 class="steps-list__heading" data-i18n="how.step3.title">Stay or pay</h3>
+                <p class="steps-list__text" data-i18n="how.step3.text">Finish the session and keep your commitment. Leave early, and the consequence applies.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--why" id="why" aria-labelledby="why-heading">
+        <div class="section__inner">
+          <h2 class="section__title" id="why-heading" data-i18n="why.title">Why STAY OR PAY works</h2>
+          <ul class="why-list">
+            <li class="why-list__item">
+              <h3 class="why-list__heading" data-i18n="why.item1.title">Real accountability</h3>
+              <p class="why-list__text" data-i18n="why.item1.text">Your commitment has a real consequence.</p>
+            </li>
+            <li class="why-list__item">
+              <h3 class="why-list__heading" data-i18n="why.item2.title">Simple by design</h3>
+              <p class="why-list__text" data-i18n="why.item2.text">No complicated systems. Just choose, start, and stay.</p>
+            </li>
+            <li class="why-list__item">
+              <h3 class="why-list__heading" data-i18n="why.item3.title">Built for deep focus</h3>
+              <p class="why-list__text" data-i18n="why.item3.text">Designed for studying, working, creating, exercising, and building.</p>
+            </li>
+            <li class="why-list__item">
+              <h3 class="why-list__heading" data-i18n="why.item4.title">Practice without risk</h3>
+              <p class="why-list__text" data-i18n="why.item4.text">You can also use Practice mode without putting money at risk.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="focus-statement" id="focus" aria-label="Focus statement">
+        <div class="focus-statement__inner">
+          <p class="focus-statement__line" data-i18n="focus.line1">Your goals matter.</p>
+          <p class="focus-statement__line" data-i18n="focus.line2">Your time matters.</p>
+          <p class="focus-statement__line focus-statement__line--accent" data-i18n="focus.line3">Keep your commitment.</p>
+        </div>
+      </section>
+
+      <section class="section section--cta" id="coming-soon" aria-labelledby="cta-heading">
+        <div class="section__inner section__inner--narrow">
+          <h2 class="section__title" id="cta-heading" data-i18n="cta.title">Ready to stay focused?</h2>
+          <p class="section__lead" data-i18n="cta.text">STAY OR PAY is coming soon to Google Play.</p>
+          <span
+            class="btn btn-primary btn-primary--large"
+            role="status"
+            aria-label="Coming soon on Google Play"
+            data-i18n="cta.button"
+          >Coming soon on Google Play</span>
+        </div>
+      </section>
+
+      <section class="section section--contact" id="contact" aria-labelledby="contact-heading">
+        <div class="section__inner section__inner--narrow">
+          <h2 class="section__title section__title--small" id="contact-heading" data-i18n="contact.title">Contact</h2>
+          <p class="contact-lead" data-i18n="contact.lead">For support or privacy-related questions:</p>
+          <p class="contact-email">
+            <a href="mailto:support@stayorpay.app">support@stayorpay.app</a>
+          </p>
+        </div>
+      </section>
     </main>
+
+    <footer class="landing-footer">
+      <div class="landing-footer__inner">
+        <p class="landing-footer__copy">
+          &copy; <span id="year"></span> STAY OR PAY. <span data-i18n="footer.rights">All rights reserved.</span>
+        </p>
+        <nav class="landing-footer__links" aria-label="Footer">
+          <a data-doc-link="privacy" href="/privacy/en/" data-i18n="footer.privacy">Privacy Policy</a>
+          <a data-doc-link="terms" href="/terms/en/" data-i18n="footer.terms">Terms of Service</a>
+          <a data-doc-link="data-deletion" href="/data-deletion/en/" data-i18n="footer.dataDeletion">Data Deletion Policy</a>
+          <a href="mailto:support@stayorpay.app">support@stayorpay.app</a>
+        </nav>
+      </div>
+    </footer>
 
     <script src="/assets/js/i18n.js"></script>
     <script src="/assets/js/home.js"></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>

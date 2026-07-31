@@ -1,11 +1,11 @@
 {
   "name": "STAY OR PAY",
   "short_name": "STAY OR PAY",
-  "description": "Stay focused, or pay. Turn your commitment into a real commitment.",
+  "description": "STAY OR PAY turns your focus sessions into real commitments.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0a0a0f",
-  "theme_color": "#11bcac",
+  "background_color": "#0A0A0F",
+  "theme_color": "#0A0A0F",
   "icons": [
     {
       "src": "/assets/icons/icon-192.png",

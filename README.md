@@ -8,17 +8,19 @@ No backend, cookies, or analytics.
 
 | URL | Description |
 |-----|-------------|
-| `/` | Home — logo, slogan, links to legal documents |
+| `/` | Landing page — product overview, how it works, coming soon CTA |
 | `/privacy/en`, `/privacy/he` | Privacy Policy |
 | `/terms/en`, `/terms/he` | Terms of Service |
 | `/data-deletion/en`, `/data-deletion/he` | Data Deletion Policy |
 
 ## Language behavior
 
-- Home page document links use the browser language: **Hebrew (`he`) → Hebrew pages**, all other languages → **English**.
+- Home page defaults to the browser language: **Hebrew (`he`) → Hebrew**, all other languages → **English**.
+- Use the **EN | HE** switcher in the header, or `?lang=en` / `?lang=he` in the URL.
+- Legal page links on the home page follow the active locale.
 - Each legal page includes an **EN | HE** switcher.
 - Hebrew pages use `dir="rtl"`; English pages use `dir="ltr"`.
-- To add a language later, extend `SUPPORTED_LOCALES` in `assets/js/i18n.js` and add `/{doc}/{locale}/index.html` pages.
+- To add a language later, extend `SUPPORTED_LOCALES` in `assets/js/i18n.js`, add strings in `assets/js/home.js`, and add `/{doc}/{locale}/index.html` pages.
 
 ## Local preview
 
@@ -49,12 +51,18 @@ Repository settings (one-time):
    stayorpay.app
    ```
 2. In **Settings → Pages → Custom domain**, enter `stayorpay.app`.
-3. Configure DNS separately when approved (A records or CNAME to GitHub Pages).
+3. Configure DNS (only after approval):
+   - **A records** for `@` → GitHub Pages IPs:
+     - `185.199.108.153`
+     - `185.199.109.153`
+     - `185.199.110.153`
+     - `185.199.111.153`
+   - Or **CNAME** for `www` → `<username>.github.io` if using a subdomain.
 4. Enable **Enforce HTTPS** once DNS propagates.
 
 ## Updating legal content
 
-Edit the locale files:
+Replace the placeholder block inside each locale file:
 
 - `privacy/{locale}/index.html`
 - `terms/{locale}/index.html`
@@ -68,13 +76,17 @@ Keep the header, language switcher, and footer intact.
 ├── CNAME
 ├── .nojekyll
 ├── index.html
+├── robots.txt
+├── sitemap.xml
+├── manifest.json
 ├── assets/
 │   ├── css/style.css
 │   ├── js/i18n.js
 │   ├── js/home.js
 │   ├── js/legal-page.js
 │   ├── favicon.svg
-│   └── images/logo.svg
+│   ├── icons/
+│   └── images/
 ├── privacy/en/index.html
 ├── privacy/he/index.html
 ├── terms/en/index.html
@@ -89,6 +101,7 @@ Each page includes:
 
 - Unique `<title>`
 - `<meta name="description">`
-- `favicon.svg` and logo for sharing
+- `robots.txt` and `sitemap.xml`
+- `favicon.svg`, PWA icons, and OG image for sharing
 
 No tracking scripts are included.
