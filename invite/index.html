@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Stay or Pay — Partner invite</title>
+    <meta
+      name="description"
+      content="You received a partner invite for Stay or Pay. Open the app or copy the invite code."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href="https://stayorpay.app/invite/" />
+    <meta name="theme-color" content="#0A0A0F" />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
+  <body class="page-landing page-invite">
+    <header class="landing-header">
+      <div class="landing-header__inner">
+        <a class="brand" href="/" aria-label="STAY OR PAY home">
+          <img
+            class="brand-logo"
+            src="/assets/images/logo.svg"
+            width="40"
+            height="40"
+            alt=""
+          />
+          <span class="brand-text">STAY OR PAY</span>
+        </a>
+      </div>
+    </header>
+
+    <main id="main" class="invite-main">
+      <section class="invite-card" id="invite-content">
+        <p class="eyebrow" data-i18n="invite.eyebrow">Partner invite</p>
+        <h1 class="invite-card__title" data-i18n="invite.title">
+          You were invited to Stay or Pay
+        </h1>
+        <p class="invite-card__lead" data-i18n="invite.lead">
+          Open the app to review the invite and choose whether to connect.
+        </p>
+
+        <div class="invite-code-box">
+          <span class="invite-code-box__label" data-i18n="invite.codeLabel"
+            >Invite code</span
+          >
+          <code id="invite-code-value" class="invite-code-box__value" dir="ltr"
+            >—</code
+          >
+        </div>
+
+        <div class="invite-actions">
+          <a
+            id="invite-open-app"
+            class="btn btn-primary invite-actions__primary"
+            href="#"
+            data-i18n="invite.openApp"
+            >Open in app</a
+          >
+          <button
+            id="invite-copy-code"
+            type="button"
+            class="btn btn-secondary invite-actions__secondary"
+            data-i18n="invite.copyCode"
+          >
+            Copy code
+          </button>
+          <a
+            class="btn btn-secondary invite-actions__secondary"
+            href="https://play.google.com/store/search?q=Stay%20or%20Pay&c=apps"
+            rel="noopener noreferrer"
+            data-i18n="invite.playStore"
+            >Get it on Google Play</a
+          >
+          <p class="invite-note" data-i18n="invite.playStoreNote">
+            Coming soon on Google Play
+          </p>
+        </div>
+      </section>
+
+      <section class="invite-card invite-card--error" id="invite-error" hidden>
+        <h1 class="invite-card__title" data-i18n="invite.errorTitle">
+          Invite link problem
+        </h1>
+        <p id="invite-error-message" class="invite-card__lead"></p>
+        <a class="btn btn-secondary" href="/" data-i18n="invite.backHome"
+          >Back to home</a
+        >
+      </section>
+    </main>
+
+    <script src="/assets/js/i18n.js"></script>
+    <script src="/assets/js/invite.js"></script>
+  </body>
+</html>

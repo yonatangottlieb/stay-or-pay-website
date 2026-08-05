@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Stay or Pay</title>
+    <script>
+      (function () {
+        var path = window.location.pathname || "";
+        var match = path.match(/\/invite\/([^/?#]+)/i);
+        if (match && match[1]) {
+          var code = match[1];
+          window.location.replace(
+            "/invite/?code=" + encodeURIComponent(code)
+          );
+        }
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
