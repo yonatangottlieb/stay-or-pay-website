@@ -1,7 +1,7 @@
 (function (global) {
   "use strict";
 
-  var CALLBACK_URL = "https://stayorpay.app/auth/callback/";
+  var CALLBACK_URL = "https://stayorpay.app/oauth/callback/";
   var DELETE_CONFIRM_KEYWORD = "DELETE";
 
   var TRANSLATIONS = {

@@ -42,7 +42,7 @@ jobs:
             ./ _site/
           touch _site/.nojekyll
           test -f _site/data-deletion/index.html
-          test -f _site/auth/callback/index.html
+          test -f _site/oauth/callback/index.html
           test -f _site/assets/config/supabase.public.js
           # Ensure public config is not a placeholder in production builds.
           ! grep -q 'YOUR_PROJECT' _site/assets/config/supabase.public.js

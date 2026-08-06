@@ -19,7 +19,7 @@ test("data-deletion page exists and returns HTML shell", () => {
 });
 
 test("auth callback page exists", () => {
-  assert.equal(existsSync(join(root, "auth/callback/index.html")), true);
+  assert.equal(existsSync(join(root, "oauth/callback/index.html")), true);
 });
 
 test("DELETE confirmation keyword gate", async () => {
