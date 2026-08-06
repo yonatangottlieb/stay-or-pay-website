@@ -210,6 +210,17 @@ function bindEvents() {
 async function boot() {
   locale = StayOrPayDataDeletion.applyLocale(locale);
   bindEvents();
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("auth_error") === "1") {
+    setErrorMessage("error.sessionExpired");
+    return;
+  }
+  if (params.get("config_error") === "1") {
+    setErrorMessage("error.config");
+    return;
+  }
+
   supabase = await initSupabase();
   if (!supabase) return;
   await refreshSessionState();

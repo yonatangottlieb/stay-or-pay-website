@@ -34,7 +34,13 @@ test("client uid in request body must not drive deletion", async () => {
   assert.match(pageJs, /getSession\(\)/);
 });
 
-test("OAuth callback redirect target is sanitized", async () => {
+test("home page footer links to self-service deletion page", () => {
+  const html = readRootFile("index.html");
+  assert.match(html, /href="\/data-deletion\/"/);
+  assert.match(html, /footer\.deleteAccount/);
+});
+
+test("OAuth callback redirect target is sanitized", () => {
   const callbackJs = readRootFile("assets/js/auth-callback.js");
   assert.match(callbackJs, /sanitizeNextPath/);
   assert.match(callbackJs, /exchangeCodeForSession/);

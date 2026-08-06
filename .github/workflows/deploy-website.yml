@@ -33,13 +33,14 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
+          mkdir -p assets/config
           if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_ANON_KEY" ]; then
-            cat > assets/config/supabase.public.js <<EOF
-          window.StayOrPaySupabaseConfig = {
-            url: "$SUPABASE_URL",
-            anonKey: "$SUPABASE_ANON_KEY",
-          };
-          EOF
+            printf '%s\n' \
+              'window.StayOrPaySupabaseConfig = {' \
+              "  url: \"${SUPABASE_URL}\"," \
+              "  anonKey: \"${SUPABASE_ANON_KEY}\"," \
+              '};' \
+              > assets/config/supabase.public.js
           else
             cp assets/config/supabase.public.js.example assets/config/supabase.public.js
           fi
@@ -51,7 +52,18 @@ jobs:
             --exclude='.git' \
             --exclude='.github' \
             --exclude='_site' \
+            --exclude='tests' \
+            --exclude='package.json' \
+            --exclude='scripts' \
+            --exclude='.lighthouse' \
             ./ _site/
+          touch _site/.nojekyll
+          echo "Verifying required pages..."
+          test -f _site/data-deletion/index.html
+          test -f _site/auth/callback/index.html
+          test -f _site/assets/js/data-deletion.js
+          test -f _site/assets/config/supabase.public.js
+          find _site/data-deletion _site/auth -type f | sort
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -61,3 +73,22 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Verify live routes
+        run: |
+          for attempt in 1 2 3 4 5 6 7 8; do
+            ok=true
+            for path in /data-deletion/ /auth/callback/; do
+              code=$(curl -s -o /dev/null -w "%{http_code}" "https://stayorpay.app${path}")
+              echo "attempt ${attempt}: ${path} -> HTTP ${code}"
+              if [ "$code" != "200" ]; then
+                ok=false
+              fi
+            done
+            if [ "$ok" = "true" ]; then
+              exit 0
+            fi
+            sleep 20
+          done
+          echo "Live route verification failed"
+          exit 1

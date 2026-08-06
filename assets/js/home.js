@@ -59,6 +59,7 @@
       "footer.privacy": "Privacy Policy",
       "footer.terms": "Terms of Service",
       "footer.dataDeletion": "Data Deletion Policy",
+      "footer.deleteAccount": "Delete Account and Data",
       "meta.title": "STAY OR PAY — Stay focused. Or pay.",
       "meta.description":
         "STAY OR PAY turns your focus sessions into real commitments. Set a timer, stay until it ends, and keep your word. Coming soon to Google Play.",
@@ -112,6 +113,7 @@
       "footer.privacy": "מדיניות פרטיות",
       "footer.terms": "תנאי שימוש",
       "footer.dataDeletion": "מדיניות מחיקת נתונים",
+      "footer.deleteAccount": "מחיקת חשבון ונתונים",
       "meta.title": "STAY OR PAY — נשארים בפוקוס. או משלמים.",
       "meta.description":
         "STAY OR PAY הופכת כל סשן פוקוס להתחייבות אמיתית. מגדירים זמן, נשארים עד הסוף ועומדים במילה שלכם. בקרוב ב־Google Play.",
