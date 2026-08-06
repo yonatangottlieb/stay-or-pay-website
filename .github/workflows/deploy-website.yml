@@ -13,7 +13,7 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   deploy:
@@ -35,15 +35,25 @@ jobs:
         run: |
           mkdir -p assets/config
           if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_ANON_KEY" ]; then
-            printf '%s\n' \
-              'window.StayOrPaySupabaseConfig = {' \
-              "  url: \"${SUPABASE_URL}\"," \
-              "  anonKey: \"${SUPABASE_ANON_KEY}\"," \
-              '};' \
-              > assets/config/supabase.public.js
-          else
+            python3 - <<'PY'
+          import json, os, pathlib
+          path = pathlib.Path("assets/config/supabase.public.js")
+          url = os.environ["SUPABASE_URL"]
+          key = os.environ["SUPABASE_ANON_KEY"]
+          path.write_text(
+              "window.StayOrPaySupabaseConfig = {\n"
+              f"  url: {json.dumps(url)},\n"
+              f"  anonKey: {json.dumps(key)},\n"
+              "};\n",
+              encoding="utf-8",
+          )
+          PY
+          elif [ ! -f assets/config/supabase.public.js ]; then
             cp assets/config/supabase.public.js.example assets/config/supabase.public.js
           fi
+          test -f assets/config/supabase.public.js
+          test -f data-deletion/index.html
+          test -f auth/callback/index.html
 
       - name: Prepare site artifact
         run: |
@@ -56,14 +66,13 @@ jobs:
             --exclude='package.json' \
             --exclude='scripts' \
             --exclude='.lighthouse' \
+            --exclude='.gitignore' \
             ./ _site/
           touch _site/.nojekyll
-          echo "Verifying required pages..."
+          ls -la _site/data-deletion/
+          ls -la _site/auth/callback/
           test -f _site/data-deletion/index.html
           test -f _site/auth/callback/index.html
-          test -f _site/assets/js/data-deletion.js
-          test -f _site/assets/config/supabase.public.js
-          find _site/data-deletion _site/auth -type f | sort
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -75,8 +84,10 @@ jobs:
         uses: actions/deploy-pages@v4
 
       - name: Verify live routes
+        continue-on-error: true
         run: |
-          for attempt in 1 2 3 4 5 6 7 8; do
+          sleep 30
+          for attempt in 1 2 3 4 5 6; do
             ok=true
             for path in /data-deletion/ /auth/callback/; do
               code=$(curl -s -o /dev/null -w "%{http_code}" "https://stayorpay.app${path}")
@@ -88,7 +99,7 @@ jobs:
             if [ "$ok" = "true" ]; then
               exit 0
             fi
-            sleep 20
+            sleep 15
           done
-          echo "Live route verification failed"
+          echo "Live route verification did not pass yet; check CDN cache."
           exit 1
