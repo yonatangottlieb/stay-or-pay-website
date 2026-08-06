@@ -1061,3 +1061,181 @@ img {
 .invite-card--error {
   text-align: center;
 }
+
+.page-data-deletion .deletion-main,
+.page-auth-callback .deletion-main {
+  min-height: calc(100vh - 5rem);
+  display: grid;
+  place-items: center;
+  padding: 2rem 1.25rem 4rem;
+}
+
+.deletion-card {
+  width: min(100%, 34rem);
+  padding: 2rem;
+  border-radius: 1.25rem;
+  background: rgba(26, 26, 34, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+}
+
+.deletion-card__title {
+  margin: 0.75rem 0 1rem;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  line-height: 1.15;
+}
+
+.deletion-card__lead {
+  margin: 0 0 1.5rem;
+  color: #8e8e93;
+  line-height: 1.6;
+}
+
+.deletion-actions {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.deletion-actions__primary,
+.deletion-actions__secondary,
+.deletion-actions__danger {
+  width: 100%;
+  justify-content: center;
+}
+
+.deletion-note {
+  margin: 1rem 0 0;
+  color: #8e8e93;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.deletion-user {
+  display: grid;
+  gap: 1rem;
+  margin: 0 0 1.5rem;
+}
+
+.deletion-user dt {
+  font-size: 0.8125rem;
+  color: #8e8e93;
+  margin-bottom: 0.25rem;
+}
+
+.deletion-user dd {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.deletion-ltr {
+  direction: ltr;
+  text-align: start;
+}
+
+.deletion-warning {
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.125rem;
+  border-radius: 0.875rem;
+  background: rgba(255, 180, 171, 0.08);
+  border: 1px solid rgba(255, 180, 171, 0.25);
+}
+
+.deletion-warning h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.deletion-warning p {
+  margin: 0;
+  color: #d7d7dc;
+  line-height: 1.55;
+}
+
+.btn-danger {
+  background: #b3261e;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.btn-danger:hover,
+.btn-danger:focus-visible {
+  background: #962018;
+}
+
+.btn-danger:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.deletion-spinner {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 auto;
+  border-radius: 999px;
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  border-top-color: #11bcac;
+  animation: deletion-spin 0.8s linear infinite;
+}
+
+@keyframes deletion-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.deletion-dialog {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  background: rgba(0, 0, 0, 0.65);
+  border: 0;
+  margin: 0;
+  max-width: none;
+  max-height: none;
+  width: auto;
+  height: auto;
+}
+
+.deletion-dialog[hidden] {
+  display: none !important;
+}
+
+.deletion-dialog__inner {
+  width: min(100%, 28rem);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background: #1a1a22;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.deletion-dialog__input {
+  width: 100%;
+  margin: 1rem 0 1.25rem;
+  padding: 0.75rem 0.875rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+}
+
+.deletion-dialog__actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+[dir="rtl"] .deletion-dialog__actions {
+  flex-direction: row-reverse;
+}
+
+.page-data-deletion .lang-switch button {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+}

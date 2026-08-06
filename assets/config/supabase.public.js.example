@@ -1,0 +1,8 @@
+/**
+ * Public Supabase client config for the marketing site.
+ * Copy to supabase.public.js and fill in values, or let CI generate it from secrets.
+ */
+window.StayOrPaySupabaseConfig = {
+  url: "https://YOUR_PROJECT.supabase.co",
+  anonKey: "YOUR_SUPABASE_ANON_KEY",
+};

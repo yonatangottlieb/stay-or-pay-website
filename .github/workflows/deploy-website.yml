@@ -28,6 +28,22 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Write Supabase public config
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_ANON_KEY" ]; then
+            cat > assets/config/supabase.public.js <<EOF
+          window.StayOrPaySupabaseConfig = {
+            url: "$SUPABASE_URL",
+            anonKey: "$SUPABASE_ANON_KEY",
+          };
+          EOF
+          else
+            cp assets/config/supabase.public.js.example assets/config/supabase.public.js
+          fi
+
       - name: Prepare site artifact
         run: |
           mkdir _site

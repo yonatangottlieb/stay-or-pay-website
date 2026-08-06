@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Delete your account — STAY OR PAY</title>
+    <meta
+      name="description"
+      content="Sign in and permanently delete your STAY OR PAY account and personal data."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://stayorpay.app/data-deletion/" />
+    <meta name="theme-color" content="#0A0A0F" />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
+  <body class="page-landing page-data-deletion">
+    <header class="landing-header">
+      <div class="landing-header__inner">
+        <a class="brand" href="/" aria-label="STAY OR PAY home">
+          <img
+            class="brand-logo"
+            src="/assets/images/logo.svg"
+            width="40"
+            height="40"
+            alt=""
+          />
+          <span class="brand-text">STAY OR PAY</span>
+        </a>
+        <nav class="lang-switch" aria-label="Language">
+          <button type="button" data-set-locale="en">EN</button>
+          <span aria-hidden="true">|</span>
+          <button type="button" data-set-locale="he">HE</button>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="deletion-main">
+      <section id="state-signed-out" class="deletion-card">
+        <p class="eyebrow" data-i18n="page.eyebrow">Account deletion</p>
+        <h1 class="deletion-card__title" data-i18n="signedOut.title">
+          Delete your Stay or Pay account
+        </h1>
+        <p class="deletion-card__lead" data-i18n="signedOut.lead">
+          Sign in with the same Google or Apple account you use in the app.
+        </p>
+        <div class="deletion-actions">
+          <button
+            id="sign-in-google"
+            type="button"
+            class="btn btn-primary deletion-actions__primary"
+            data-i18n="auth.google"
+          >
+            Continue with Google
+          </button>
+          <button
+            id="sign-in-apple"
+            type="button"
+            class="btn btn-secondary deletion-actions__secondary"
+            data-i18n="auth.apple"
+          >
+            Continue with Apple
+          </button>
+        </div>
+        <p class="deletion-note" data-i18n="signedOut.sameAccount">
+          Use the same account you signed into in the mobile app.
+        </p>
+        <p class="deletion-note">
+          <a id="privacy-link" href="/privacy/en/" data-i18n="signedOut.privacy"
+            >Privacy Policy</a
+          >
+        </p>
+      </section>
+
+      <section id="state-signed-in" class="deletion-card" hidden>
+        <p class="eyebrow" data-i18n="signedIn.title">Signed in</p>
+        <p class="deletion-card__lead" data-i18n="signedIn.lead">
+          Review the details below, then delete your account if you are sure.
+        </p>
+        <dl class="deletion-user">
+          <div>
+            <dt data-i18n="signedIn.name">Name</dt>
+            <dd id="user-name" dir="auto">—</dd>
+          </div>
+          <div>
+            <dt data-i18n="signedIn.email">Email</dt>
+            <dd id="user-email" class="deletion-ltr" dir="ltr">—</dd>
+          </div>
+        </dl>
+        <div class="deletion-warning">
+          <h2 data-i18n="signedIn.dataTitle">What will be deleted</h2>
+          <p data-i18n="signedIn.dataBody">
+            Your profile, session history, partner connections, invites, and payment setup data.
+          </p>
+        </div>
+        <button
+          id="delete-account-button"
+          type="button"
+          class="btn btn-danger deletion-actions__danger"
+          data-i18n="delete.button"
+        >
+          Delete account
+        </button>
+      </section>
+
+      <section id="state-deleting" class="deletion-card" hidden>
+        <p class="deletion-card__lead" data-i18n="delete.inProgress">Deleting account…</p>
+        <div class="deletion-spinner" aria-hidden="true"></div>
+      </section>
+
+      <section id="state-success" class="deletion-card" hidden>
+        <h1 class="deletion-card__title" data-i18n="success.title">Account deleted</h1>
+        <p class="deletion-card__lead" data-i18n="success.body">
+          Your account and personal data have been removed.
+        </p>
+        <button
+          id="success-home"
+          type="button"
+          class="btn btn-primary"
+          data-i18n="success.home"
+        >
+          Back to home
+        </button>
+      </section>
+
+      <section id="state-error" class="deletion-card deletion-card--error" hidden>
+        <p id="error-message" class="deletion-card__lead"></p>
+        <a class="btn btn-secondary" href="/data-deletion/" data-i18n="error.retry"
+          >Try again</a
+        >
+      </section>
+    </main>
+
+    <dialog id="confirm-dialog" class="deletion-dialog" hidden>
+      <form method="dialog" class="deletion-dialog__inner">
+        <h2 data-i18n="delete.confirmTitle">Delete your account permanently?</h2>
+        <p data-i18n="delete.confirmBody">Type DELETE to confirm.</p>
+        <input
+          id="confirm-input"
+          class="deletion-dialog__input"
+          type="text"
+          autocomplete="off"
+          autocapitalize="characters"
+          data-i18n-placeholder="delete.confirmPlaceholder"
+          placeholder="Type DELETE"
+          dir="ltr"
+        />
+        <div class="deletion-dialog__actions">
+          <button id="confirm-cancel" type="button" class="btn btn-secondary" data-i18n="delete.cancel">
+            Cancel
+          </button>
+          <button
+            id="confirm-submit"
+            type="button"
+            class="btn btn-danger"
+            disabled
+            data-i18n="delete.confirmAction"
+          >
+            Delete my account
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="/assets/config/supabase.public.js"></script>
+    <script src="/assets/js/i18n.js"></script>
+    <script src="/assets/js/data-deletion-shared.js"></script>
+    <script type="module" src="/assets/js/data-deletion.js"></script>
+  </body>
+</html>
