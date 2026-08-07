@@ -66,14 +66,30 @@
             Copy code
           </button>
           <a
+            id="invite-play-store"
             class="btn btn-secondary invite-actions__secondary"
-            href="https://play.google.com/store/search?q=Stay%20or%20Pay&c=apps"
-            rel="noopener noreferrer"
+            href="#"
+            data-play-store-cta
+            data-play-label="download"
+            data-platform-hidden="ios"
             data-i18n="invite.playStore"
-            >Get it on Google Play</a
+            >Download from Google Play</a
           >
-          <p class="invite-note" data-i18n="invite.playStoreNote">
-            Coming soon on Google Play
+          <p
+            class="invite-note"
+            data-play-store-note="coming-soon"
+            data-platform-hidden="ios"
+            data-i18n="invite.playStoreNote"
+          >
+            Google Play listing coming soon
+          </p>
+          <p
+            class="invite-note"
+            data-ios-coming-soon
+            hidden
+            data-i18n="invite.iosNote"
+          >
+            iPhone version coming soon
           </p>
         </div>
       </section>
@@ -89,7 +105,31 @@
       </section>
     </main>
 
+    <aside
+      id="android-play-banner"
+      class="android-play-banner"
+      data-platform-visible="android"
+      hidden
+      role="region"
+      aria-label="Google Play download"
+    >
+      <div class="android-play-banner__inner">
+        <p class="android-play-banner__title" data-android-banner-title>
+          Stay or Pay is available on Google Play
+        </p>
+        <a
+          class="btn btn-primary android-play-banner__action"
+          href="#"
+          data-play-store-cta
+          data-play-label="androidBannerAction"
+          >Download</a
+        >
+      </div>
+    </aside>
+
     <script src="/assets/js/i18n.js"></script>
+    <script src="/assets/js/app-store-config.js"></script>
     <script src="/assets/js/invite.js"></script>
+    <script src="/assets/js/play-store-cta.js"></script>
   </body>
 </html>

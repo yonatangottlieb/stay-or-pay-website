@@ -97,14 +97,33 @@
             Set a timer, stay until it ends, and keep your word.
           </p>
           <div class="hero__actions">
-            <span
+            <a
               class="btn btn-primary"
-              role="status"
-              aria-label="Coming soon on Google Play"
+              href="#"
+              data-play-store-cta
+              data-play-label="download"
+              data-platform-hidden="ios"
               data-i18n="hero.ctaPrimary"
-            >Coming soon on Google Play</span>
+              >Download from Google Play</a
+            >
+            <p
+              class="hero__ios-note"
+              data-ios-coming-soon
+              hidden
+              data-i18n="hero.iosNote"
+            >
+              iPhone version coming soon
+            </p>
             <a class="btn btn-secondary" href="#how-it-works" data-i18n="hero.ctaSecondary">See how it works</a>
           </div>
+          <p
+            class="hero__play-note"
+            data-play-store-note="coming-soon"
+            data-platform-hidden="ios"
+            data-i18n="hero.playNote"
+          >
+            Google Play listing coming soon
+          </p>
         </div>
 
         <div class="product-visual" id="product" aria-label="App preview">
@@ -218,16 +237,37 @@
         </div>
       </section>
 
-      <section class="section section--cta" id="coming-soon" aria-labelledby="cta-heading">
+      <section class="section section--cta" id="download" aria-labelledby="cta-heading">
         <div class="section__inner section__inner--narrow">
           <h2 class="section__title" id="cta-heading" data-i18n="cta.title">Ready to stay focused?</h2>
-          <p class="section__lead" data-i18n="cta.text">STAY OR PAY is coming soon to Google Play.</p>
-          <span
+          <p class="section__lead" data-i18n="cta.text">
+            Download Stay or Pay from Google Play and turn focus into a real commitment.
+          </p>
+          <a
             class="btn btn-primary btn-primary--large"
-            role="status"
-            aria-label="Coming soon on Google Play"
+            href="#"
+            data-play-store-cta
+            data-play-label="download"
+            data-platform-hidden="ios"
             data-i18n="cta.button"
-          >Coming soon on Google Play</span>
+            >Download from Google Play</a
+          >
+          <p
+            class="cta-play-note"
+            data-play-store-note="coming-soon"
+            data-platform-hidden="ios"
+            data-i18n="cta.playNote"
+          >
+            Google Play listing coming soon
+          </p>
+          <p
+            class="cta-ios-note"
+            data-ios-coming-soon
+            hidden
+            data-i18n="cta.iosNote"
+          >
+            iPhone version coming soon
+          </p>
         </div>
       </section>
 
@@ -257,8 +297,33 @@
       </div>
     </footer>
 
+    <aside
+      id="android-play-banner"
+      class="android-play-banner"
+      data-platform-visible="android"
+      hidden
+      role="region"
+      aria-label="Google Play download"
+    >
+      <div class="android-play-banner__inner">
+        <p class="android-play-banner__title" data-android-banner-title data-i18n="androidBanner.title">
+          Stay or Pay is available on Google Play
+        </p>
+        <a
+          class="btn btn-primary android-play-banner__action"
+          href="#"
+          data-play-store-cta
+          data-play-label="androidBannerAction"
+          data-i18n="androidBanner.action"
+          >Download</a
+        >
+      </div>
+    </aside>
+
     <script src="/assets/js/i18n.js"></script>
+    <script src="/assets/js/app-store-config.js"></script>
     <script src="/assets/js/home.js"></script>
+    <script src="/assets/js/play-store-cta.js"></script>
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
     </script>

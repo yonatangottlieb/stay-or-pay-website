@@ -23,8 +23,9 @@
       "invite.codeLabel": "Invite code",
       "invite.openApp": "Open in app",
       "invite.copyCode": "Copy code",
-      "invite.playStore": "Get it on Google Play",
-      "invite.playStoreNote": "Coming soon on Google Play",
+      "invite.playStore": "Download from Google Play",
+      "invite.playStoreNote": "Google Play listing coming soon",
+      "invite.iosNote": "iPhone version coming soon",
       "invite.copied": "Invite code copied.",
       "invite.errorTitle": "Invite link problem",
       "invite.errorMissing": "This invite link is missing a code.",
@@ -42,8 +43,9 @@
       "invite.codeLabel": "קוד הזמנה",
       "invite.openApp": "פתח באפליקציה",
       "invite.copyCode": "העתק קוד",
-      "invite.playStore": "הורד מ־Google Play",
-      "invite.playStoreNote": "בקרוב ב־Google Play",
+      "invite.playStore": "הורדה מ־Google Play",
+      "invite.playStoreNote": "עמוד Google Play יעלה בקרוב",
+      "invite.iosNote": "גרסת iPhone בקרוב",
       "invite.copied": "קוד ההזמנה הועתק.",
       "invite.errorTitle": "בעיה בקישור ההזמנה",
       "invite.errorMissing": "בקישור הזה חסר קוד הזמנה.",
@@ -107,6 +109,10 @@
     var description = document.querySelector('meta[name="description"]');
     if (description && strings["meta.description"]) {
       description.setAttribute("content", strings["meta.description"]);
+    }
+
+    if (window.StayOrPayPlayStoreCta && window.StayOrPayPlayStoreCta.applyAll) {
+      window.StayOrPayPlayStoreCta.applyAll();
     }
   }
 

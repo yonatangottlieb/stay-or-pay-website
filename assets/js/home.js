@@ -20,8 +20,12 @@
       "hero.headline": "Stay focused.<br />Or pay.",
       "hero.subheadline":
         "STAY OR PAY turns your focus sessions into real commitments.<br />Set a timer, stay until it ends, and keep your word.",
-      "hero.ctaPrimary": "Coming soon on Google Play",
+      "hero.ctaPrimary": "Download from Google Play",
       "hero.ctaSecondary": "See how it works",
+      "hero.playNote": "Google Play listing coming soon",
+      "hero.iosNote": "iPhone version coming soon",
+      "androidBanner.title": "Stay or Pay is available on Google Play",
+      "androidBanner.action": "Download",
       "mockup.homeCaption": "STAY OR PAY home screen",
       "mockup.tagline": "Stay focused. Or pay the price.",
       "mockup.stepTime": "Choose time",
@@ -51,8 +55,11 @@
       "focus.line2": "Your time matters.",
       "focus.line3": "Keep your commitment.",
       "cta.title": "Ready to stay focused?",
-      "cta.text": "STAY OR PAY is coming soon to Google Play.",
-      "cta.button": "Coming soon on Google Play",
+      "cta.text":
+        "Download Stay or Pay from Google Play and turn focus into a real commitment.",
+      "cta.button": "Download from Google Play",
+      "cta.playNote": "Google Play listing coming soon",
+      "cta.iosNote": "iPhone version coming soon",
       "contact.title": "Contact",
       "contact.lead": "For support or privacy-related questions:",
       "footer.rights": "All rights reserved.",
@@ -62,8 +69,8 @@
       "footer.deleteAccount": "Delete Account and Data",
       "meta.title": "STAY OR PAY — Stay focused. Or pay.",
       "meta.description":
-        "STAY OR PAY turns your focus sessions into real commitments. Set a timer, stay until it ends, and keep your word. Coming soon to Google Play.",
-      "aria.ctaPrimary": "Coming soon on Google Play",
+        "STAY OR PAY turns your focus sessions into real commitments. Set a timer, stay until it ends, and keep your word. Download from Google Play.",
+      "aria.ctaPrimary": "Download from Google Play",
     },
     he: {
       "nav.about": "אודות",
@@ -75,8 +82,12 @@
       "hero.headline": "נשארים בפוקוס.<br />או משלמים.",
       "hero.subheadline":
         "STAY OR PAY הופכת כל סשן פוקוס להתחייבות אמיתית.<br />מגדירים זמן, נשארים עד הסוף ועומדים במילה שלכם.",
-      "hero.ctaPrimary": "בקרוב ב־Google Play",
+      "hero.ctaPrimary": "הורדה מ־Google Play",
       "hero.ctaSecondary": "איך זה עובד",
+      "hero.playNote": "עמוד Google Play יעלה בקרוב",
+      "hero.iosNote": "גרסת iPhone בקרוב",
+      "androidBanner.title": "Stay or Pay זמינה ב־Google Play",
+      "androidBanner.action": "להורדה",
       "mockup.homeCaption": "מסך הבית של STAY OR PAY",
       "mockup.tagline": "Stay focused. Or pay the price.",
       "mockup.stepTime": "בחירת זמן",
@@ -105,8 +116,11 @@
       "focus.line2": "הזמן שלכם חשוב.",
       "focus.line3": "עמדו בהתחייבות שלכם.",
       "cta.title": "מוכנים להישאר בפוקוס?",
-      "cta.text": "STAY OR PAY מגיעה בקרוב ל־Google Play.",
-      "cta.button": "בקרוב ב־Google Play",
+      "cta.text":
+        "הורידו את Stay or Pay מ־Google Play והפכו פוקוס להתחייבות אמיתית.",
+      "cta.button": "הורדה מ־Google Play",
+      "cta.playNote": "עמוד Google Play יעלה בקרוב",
+      "cta.iosNote": "גרסת iPhone בקרוב",
       "contact.title": "יצירת קשר",
       "contact.lead": "לתמיכה או לשאלות בנושא פרטיות:",
       "footer.rights": "כל הזכויות שמורות.",
@@ -116,8 +130,8 @@
       "footer.deleteAccount": "מחיקת חשבון ונתונים",
       "meta.title": "STAY OR PAY — נשארים בפוקוס. או משלמים.",
       "meta.description":
-        "STAY OR PAY הופכת כל סשן פוקוס להתחייבות אמיתית. מגדירים זמן, נשארים עד הסוף ועומדים במילה שלכם. בקרוב ב־Google Play.",
-      "aria.ctaPrimary": "בקרוב ב־Google Play",
+        "STAY OR PAY הופכת כל סשן פוקוס להתחייבות אמיתית. מגדירים זמן, נשארים עד הסוף ועומדים במילה שלכם. הורדה מ־Google Play.",
+      "aria.ctaPrimary": "הורדה מ־Google Play",
     },
   };
 
@@ -170,10 +184,6 @@
       element.innerHTML = strings[key];
     });
 
-    document.querySelectorAll('[role="status"].btn-primary').forEach(function (element) {
-      element.setAttribute("aria-label", strings["aria.ctaPrimary"]);
-    });
-
     document.title = strings["meta.title"];
 
     var description = document.querySelector('meta[name="description"]');
@@ -200,6 +210,10 @@
       window.localStorage.setItem(LOCALE_STORAGE_KEY, normalized);
     } catch (_error) {
       /* ignore storage errors */
+    }
+
+    if (window.StayOrPayPlayStoreCta && window.StayOrPayPlayStoreCta.applyAll) {
+      window.StayOrPayPlayStoreCta.applyAll();
     }
   }
 

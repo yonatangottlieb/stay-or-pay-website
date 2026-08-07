@@ -1062,6 +1062,83 @@ img {
   text-align: center;
 }
 
+.btn.is-disabled,
+a.btn.is-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.hero__play-note,
+.cta-play-note,
+.cta-ios-note,
+.hero__ios-note {
+  margin: 0.75rem 0 0;
+  color: #8e8e93;
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.hero__ios-note {
+  width: 100%;
+}
+
+.android-play-banner {
+  position: sticky;
+  bottom: 0;
+  z-index: 40;
+  padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  background: rgba(16, 16, 22, 0.96);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.android-play-banner[hidden] {
+  display: none !important;
+}
+
+.android-play-banner__inner {
+  width: min(100%, var(--landing-max, 72rem));
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+}
+
+.android-play-banner__title {
+  margin: 0;
+  color: #f5f5f7;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.android-play-banner__action {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+[dir="rtl"] .android-play-banner__inner {
+  flex-direction: row-reverse;
+}
+
+@media (max-width: 480px) {
+  .android-play-banner__inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .android-play-banner__action {
+    width: 100%;
+    justify-content: center;
+  }
+
+  [dir="rtl"] .android-play-banner__inner {
+    flex-direction: column;
+  }
+}
+
 .page-data-deletion .deletion-main,
 .page-auth-callback .deletion-main {
   min-height: calc(100vh - 5rem);
