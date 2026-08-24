@@ -1,19 +1,19 @@
 /**
  * Single source of truth for app store links on stayorpay.app.
  *
- * When Closed Testing / production listing is live, set playStoreUrl to:
- *   https://play.google.com/store/apps/details?id=com.stayorpay.app
- * (package id verified from the Flutter Android applicationId).
- *
- * Keep playStoreUrl null until the listing is publicly reachable.
+ * Base listing URL (no referrer). The invite page appends an invite_code
+ * referrer for deferred partner installs; home and other pages use this base URL.
  */
 (function (global) {
   "use strict";
 
   var ANDROID_PACKAGE_ID = "com.stayorpay.app";
 
+  var PLAY_STORE_LISTING_BASE =
+    "https://play.google.com/store/apps/details?id=" + ANDROID_PACKAGE_ID;
+
   /** @type {string|null} */
-  var PLAY_STORE_URL = null;
+  var PLAY_STORE_URL = PLAY_STORE_LISTING_BASE;
 
   /**
    * @returns {"android"|"ios"|"desktop"}
@@ -50,6 +50,7 @@
 
   global.StayOrPayAppStore = {
     androidPackageId: ANDROID_PACKAGE_ID,
+    playStoreListingBase: PLAY_STORE_LISTING_BASE,
     playStoreUrl: PLAY_STORE_URL,
     detectPlatform: detectPlatform,
     isPlayStoreAvailable: isPlayStoreAvailable,

@@ -13,11 +13,12 @@ function read(relativePath) {
 test("app store config uses verified Android package id", () => {
   const config = read("assets/js/app-store-config.js");
   assert.match(config, /com\.stayorpay\.app/);
-  assert.match(config, /PLAY_STORE_URL = null/);
   assert.match(
     config,
-    /play\.google\.com\/store\/apps\/details\?id=com\.stayorpay\.app/,
+    /PLAY_STORE_URL = PLAY_STORE_LISTING_BASE/,
   );
+  assert.match(config, /PLAY_STORE_LISTING_BASE/);
+  assert.match(config, /store\/apps\/details\?id=/);
 });
 
 test("home page exposes Play Store CTAs and Android banner", () => {

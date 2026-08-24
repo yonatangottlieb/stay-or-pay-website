@@ -39,13 +39,33 @@
     return (STRINGS[locale] && STRINGS[locale][key]) || STRINGS.en[key] || key;
   }
 
+  function resolvePlayStoreUrl() {
+    if (!store.isPlayStoreAvailable()) {
+      return null;
+    }
+
+    var inviteLinks = window.StayOrPayInviteLinks;
+    var inviteCode = document.documentElement.getAttribute("data-invite-code");
+    if (
+      inviteLinks &&
+      inviteCode &&
+      inviteLinks.isValidInviteCode &&
+      inviteLinks.isValidInviteCode(inviteCode) &&
+      inviteLinks.buildPlayStoreListingUrl
+    ) {
+      return inviteLinks.buildPlayStoreListingUrl(inviteCode);
+    }
+
+    return store.getPlayStoreUrl();
+  }
+
   function setPlayStoreControl(element) {
     if (!element) {
       return;
     }
 
     var available = store.isPlayStoreAvailable();
-    var url = store.getPlayStoreUrl();
+    var url = resolvePlayStoreUrl();
     var labelKey = element.getAttribute("data-play-label") || "download";
     var label = t(labelKey);
 
