@@ -25,6 +25,8 @@
       "invite.copyCode": "Copy code",
       "invite.playStore": "Download from Google Play",
       "invite.playStoreNote": "Google Play listing coming soon",
+      "invite.closedTestingNote":
+        "Stay or Pay is currently in limited Google Play testing. Testers can install from Play. If you are not a tester, you can still open the app if it is already installed.",
       "invite.iosNote": "iPhone version coming soon",
       "invite.copied": "Invite code copied.",
       "invite.errorTitle": "Invite link problem",
@@ -45,12 +47,36 @@
       "invite.copyCode": "העתק קוד",
       "invite.playStore": "הורדה מ־Google Play",
       "invite.playStoreNote": "עמוד Google Play יעלה בקרוב",
+      "invite.closedTestingNote":
+        "Stay or Pay כרגע בגישה מוגבלת ב־Google Play. אם הוזמנת כבודק אפשר להתקין. אם לא, אפשר לפתוח את האפליקציה אם היא כבר מותקנת.",
       "invite.iosNote": "גרסת iPhone בקרוב",
       "invite.copied": "קוד ההזמנה הועתק.",
       "invite.errorTitle": "בעיה בקישור ההזמנה",
       "invite.errorMissing": "בקישור הזה חסר קוד הזמנה.",
       "invite.errorInvalid": "קוד ההזמנה אינו תקין.",
       "invite.backHome": "חזרה לדף הבית",
+    },
+    fr: {
+      "meta.title": "Stay or Pay — Invitation partenaire",
+      "meta.description":
+        "Vous avez reçu une invitation Stay or Pay. Ouvrez l’application ou copiez le code.",
+      "invite.eyebrow": "Invitation partenaire",
+      "invite.title": "Vous êtes invité sur Stay or Pay",
+      "invite.lead":
+        "Ouvrez l’application pour voir l’invitation et choisir de vous connecter.",
+      "invite.codeLabel": "Code d’invitation",
+      "invite.openApp": "Ouvrir dans l’app",
+      "invite.copyCode": "Copier le code",
+      "invite.playStore": "Télécharger sur Google Play",
+      "invite.playStoreNote": "Fiche Google Play bientôt disponible",
+      "invite.closedTestingNote":
+        "Stay or Pay est actuellement en test limité sur Google Play. Les testeurs peuvent installer. Sinon, ouvrez l’app si elle est déjà installée.",
+      "invite.iosNote": "Version iPhone bientôt disponible",
+      "invite.copied": "Code d’invitation copié.",
+      "invite.errorTitle": "Problème de lien d’invitation",
+      "invite.errorMissing": "Ce lien d’invitation n’a pas de code.",
+      "invite.errorInvalid": "Ce code d’invitation n’est pas valide.",
+      "invite.backHome": "Retour à l’accueil",
     },
   };
 
@@ -174,6 +200,27 @@
     }
   }
 
+  function recordInviteOpen(code) {
+    var cfg = window.StayOrPaySupabaseConfig || {};
+    var url = typeof cfg.url === "string" ? cfg.url.trim() : "";
+    var anonKey = typeof cfg.anonKey === "string" ? cfg.anonKey.trim() : "";
+    if (!url || !anonKey || url.indexOf("YOUR_PROJECT") !== -1) {
+      return;
+    }
+    fetch(url.replace(/\/$/, "") + "/rest/v1/rpc/record_invite_open", {
+      method: "POST",
+      headers: {
+        apikey: anonKey,
+        Authorization: "Bearer " + anonKey,
+        "Content-Type": "application/json",
+        Prefer: "return=minimal",
+      },
+      body: JSON.stringify({ p_invite_code: code }),
+    }).catch(function () {
+      /* attribution is best-effort */
+    });
+  }
+
   function initInvitePage() {
     var locale = resolveLocale();
     applyLocale(locale);
@@ -196,6 +243,12 @@
     if (codeNode) {
       codeNode.textContent = code;
     }
+
+    window.StayOrPayInviteCode = code;
+    if (window.StayOrPayPlayStoreCta && window.StayOrPayPlayStoreCta.applyAll) {
+      window.StayOrPayPlayStoreCta.applyAll();
+    }
+    recordInviteOpen(code);
 
     if (openAppButton) {
       openAppButton.href = buildAppDeepLink(code);

@@ -17,6 +17,8 @@
       androidBannerTitle: "Stay or Pay is available on Google Play",
       androidBannerAction: "Download",
       comingSoonNote: "Google Play listing coming soon",
+      closedTestingNote:
+        "Stay or Pay is currently in limited Google Play testing. Testers can install from Play. If you are not a tester, you can still open the app if it is already installed.",
       iosNote: "iPhone version coming soon",
     },
     he: {
@@ -25,13 +27,31 @@
       androidBannerTitle: "Stay or Pay זמינה ב־Google Play",
       androidBannerAction: "להורדה",
       comingSoonNote: "עמוד Google Play יעלה בקרוב",
+      closedTestingNote:
+        "Stay or Pay כרגע בגישה מוגבלת ב־Google Play. אם הוזמנת כבודק אפשר להתקין. אם לא, אפשר לפתוח את האפליקציה אם היא כבר מותקנת.",
       iosNote: "גרסת iPhone בקרוב",
+    },
+    fr: {
+      download: "Télécharger sur Google Play",
+      downloadShort: "Télécharger",
+      androidBannerTitle: "Stay or Pay est disponible sur Google Play",
+      androidBannerAction: "Télécharger",
+      comingSoonNote: "Fiche Google Play bientôt disponible",
+      closedTestingNote:
+        "Stay or Pay est actuellement en test limité sur Google Play. Les testeurs peuvent installer. Sinon, ouvrez l’app si elle est déjà installée.",
+      iosNote: "Version iPhone bientôt disponible",
     },
   };
 
   function currentLocale() {
     var lang = (document.documentElement.lang || "en").toLowerCase();
-    return lang.indexOf("he") === 0 ? "he" : "en";
+    if (lang.indexOf("he") === 0) {
+      return "he";
+    }
+    if (lang.indexOf("fr") === 0) {
+      return "fr";
+    }
+    return "en";
   }
 
   function t(key) {
@@ -45,7 +65,11 @@
     }
 
     var available = store.isPlayStoreAvailable();
-    var url = store.getPlayStoreUrl();
+    var inviteCode = window.StayOrPayInviteCode;
+    var url =
+      typeof store.buildPlayStoreUrlWithReferrer === "function"
+        ? store.buildPlayStoreUrlWithReferrer(inviteCode)
+        : store.getPlayStoreUrl();
     var labelKey = element.getAttribute("data-play-label") || "download";
     var label = t(labelKey);
 
@@ -84,12 +108,20 @@
 
   function syncNotes() {
     var available = store.isPlayStoreAvailable();
+    var closedTesting =
+      typeof store.isClosedTesting === "function" && store.isClosedTesting();
     document.querySelectorAll("[data-play-store-note]").forEach(function (node) {
       var mode = node.getAttribute("data-play-store-note");
       if (mode === "coming-soon") {
         node.hidden = available;
         if (!available) {
           node.textContent = t("comingSoonNote");
+        }
+      }
+      if (mode === "closed-testing") {
+        node.hidden = !closedTesting;
+        if (closedTesting) {
+          node.textContent = t("closedTestingNote");
         }
       }
     });

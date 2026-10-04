@@ -1,19 +1,23 @@
 /**
  * Single source of truth for app store links on stayorpay.app.
  *
- * When Closed Testing / production listing is live, set playStoreUrl to:
- *   https://play.google.com/store/apps/details?id=com.stayorpay.app
- * (package id verified from the Flutter Android applicationId).
+ * Invite SMS always uses https://stayorpay.app/invite/?code=...
+ * This file only controls the website Play Store CTA (never auto-redirect).
  *
- * Keep playStoreUrl null until the listing is publicly reachable.
+ * DISTRIBUTION:
+ *   closed_testing — listing exists but install is limited to testers.
+ *   public         — anyone can install; same invite URL, referrer attribution.
  */
 (function (global) {
   "use strict";
 
   var ANDROID_PACKAGE_ID = "com.stayorpay.app";
 
-  /** @type {string|null} */
-  var PLAY_STORE_URL = null;
+  /** @type {"closed_testing"|"public"} */
+  var DISTRIBUTION = "closed_testing";
+
+  var PLAY_STORE_LISTING_URL =
+    "https://play.google.com/store/apps/details?id=" + ANDROID_PACKAGE_ID;
 
   /**
    * @returns {"android"|"ios"|"desktop"}
@@ -26,7 +30,6 @@
     if (/iPhone|iPad|iPod/i.test(ua)) {
       return "ios";
     }
-    // iPadOS 13+ may report as Mac; treat touch Macs with no Android as iOS-like.
     if (
       /Macintosh/i.test(ua) &&
       global.navigator.maxTouchPoints &&
@@ -38,21 +41,46 @@
   }
 
   function isPlayStoreAvailable() {
-    return typeof PLAY_STORE_URL === "string" && PLAY_STORE_URL.trim().length > 0;
+    return typeof PLAY_STORE_LISTING_URL === "string" &&
+      PLAY_STORE_LISTING_URL.trim().length > 0;
+  }
+
+  function isClosedTesting() {
+    return DISTRIBUTION === "closed_testing";
   }
 
   function getPlayStoreUrl() {
     if (!isPlayStoreAvailable()) {
       return null;
     }
-    return PLAY_STORE_URL.trim();
+    return PLAY_STORE_LISTING_URL.trim();
+  }
+
+  /**
+   * @param {string} [inviteCode]
+   * @returns {string|null}
+   */
+  function buildPlayStoreUrlWithReferrer(inviteCode) {
+    var base = getPlayStoreUrl();
+    if (!base) {
+      return null;
+    }
+    if (!inviteCode) {
+      return base;
+    }
+    var referrer = "invite_code=" + inviteCode;
+    var separator = base.indexOf("?") >= 0 ? "&" : "?";
+    return base + separator + "referrer=" + encodeURIComponent(referrer);
   }
 
   global.StayOrPayAppStore = {
     androidPackageId: ANDROID_PACKAGE_ID,
-    playStoreUrl: PLAY_STORE_URL,
+    distribution: DISTRIBUTION,
+    playStoreUrl: PLAY_STORE_LISTING_URL,
     detectPlatform: detectPlatform,
     isPlayStoreAvailable: isPlayStoreAvailable,
+    isClosedTesting: isClosedTesting,
     getPlayStoreUrl: getPlayStoreUrl,
+    buildPlayStoreUrlWithReferrer: buildPlayStoreUrlWithReferrer,
   };
 })(window);

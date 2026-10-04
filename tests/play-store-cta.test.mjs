@@ -13,10 +13,10 @@ function read(relativePath) {
 test("app store config uses verified Android package id", () => {
   const config = read("assets/js/app-store-config.js");
   assert.match(config, /com\.stayorpay\.app/);
-  assert.match(config, /PLAY_STORE_URL = null/);
+  assert.match(config, /DISTRIBUTION = "closed_testing"/);
   assert.match(
     config,
-    /play\.google\.com\/store\/apps\/details\?id=com\.stayorpay\.app/,
+    /play\.google\.com\/store\/apps\/details\?id=" \+ ANDROID_PACKAGE_ID/,
   );
 });
 
@@ -35,7 +35,19 @@ test("invite page uses shared Play Store config instead of hardcoded URL", () =>
   assert.match(html, /data-play-store-cta/);
   assert.match(html, /app-store-config\.js/);
   assert.match(html, /play-store-cta\.js/);
+  assert.match(html, /data-play-store-note="closed-testing"/);
+  assert.match(html, /supabase\.public\.js/);
   assert.doesNotMatch(html, /play\.google\.com\/store\//);
+});
+
+test("invite config can attach Play referrer without changing invite URL format", () => {
+  const config = read("assets/js/app-store-config.js");
+  assert.match(config, /buildPlayStoreUrlWithReferrer/);
+  assert.match(config, /invite_code=/);
+  const invite = read("assets/js/invite.js");
+  assert.match(invite, /record_invite_open/);
+  assert.match(invite, /StayOrPayInviteCode/);
+  assert.doesNotMatch(invite, /location\.replace/);
 });
 
 test("data-deletion and auth-related pages still exist", () => {
