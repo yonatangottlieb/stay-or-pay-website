@@ -4,6 +4,10 @@
  * Invite SMS always uses https://stayorpay.app/invite/?code=...
  * This file only controls the website Play Store CTA (never auto-redirect).
  *
+ * Base listing URL (no referrer). The invite page appends an invite_code
+ * referrer for deferred partner installs via invite-link-utils; home and other
+ * pages use this base URL.
+ *
  * DISTRIBUTION:
  *   closed_testing — listing exists but install is limited to testers.
  *   public         — anyone can install; same invite URL, referrer attribution.
@@ -16,8 +20,11 @@
   /** @type {"closed_testing"|"public"} */
   var DISTRIBUTION = "closed_testing";
 
-  var PLAY_STORE_LISTING_URL =
+  var PLAY_STORE_LISTING_BASE =
     "https://play.google.com/store/apps/details?id=" + ANDROID_PACKAGE_ID;
+
+  /** @type {string|null} */
+  var PLAY_STORE_URL = PLAY_STORE_LISTING_BASE;
 
   /**
    * @returns {"android"|"ios"|"desktop"}
@@ -41,8 +48,7 @@
   }
 
   function isPlayStoreAvailable() {
-    return typeof PLAY_STORE_LISTING_URL === "string" &&
-      PLAY_STORE_LISTING_URL.trim().length > 0;
+    return typeof PLAY_STORE_URL === "string" && PLAY_STORE_URL.trim().length > 0;
   }
 
   function isClosedTesting() {
@@ -53,34 +59,17 @@
     if (!isPlayStoreAvailable()) {
       return null;
     }
-    return PLAY_STORE_LISTING_URL.trim();
-  }
-
-  /**
-   * @param {string} [inviteCode]
-   * @returns {string|null}
-   */
-  function buildPlayStoreUrlWithReferrer(inviteCode) {
-    var base = getPlayStoreUrl();
-    if (!base) {
-      return null;
-    }
-    if (!inviteCode) {
-      return base;
-    }
-    var referrer = "invite_code=" + inviteCode;
-    var separator = base.indexOf("?") >= 0 ? "&" : "?";
-    return base + separator + "referrer=" + encodeURIComponent(referrer);
+    return PLAY_STORE_URL.trim();
   }
 
   global.StayOrPayAppStore = {
     androidPackageId: ANDROID_PACKAGE_ID,
     distribution: DISTRIBUTION,
-    playStoreUrl: PLAY_STORE_LISTING_URL,
+    playStoreListingBase: PLAY_STORE_LISTING_BASE,
+    playStoreUrl: PLAY_STORE_URL,
     detectPlatform: detectPlatform,
     isPlayStoreAvailable: isPlayStoreAvailable,
     isClosedTesting: isClosedTesting,
     getPlayStoreUrl: getPlayStoreUrl,
-    buildPlayStoreUrlWithReferrer: buildPlayStoreUrlWithReferrer,
   };
 })(window);

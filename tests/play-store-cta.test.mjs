@@ -14,10 +14,11 @@ test("app store config uses verified Android package id", () => {
   const config = read("assets/js/app-store-config.js");
   assert.match(config, /com\.stayorpay\.app/);
   assert.match(config, /DISTRIBUTION = "closed_testing"/);
-  assert.match(
-    config,
-    /play\.google\.com\/store\/apps\/details\?id=" \+ ANDROID_PACKAGE_ID/,
-  );
+  assert.match(config, /PLAY_STORE_URL = PLAY_STORE_LISTING_BASE/);
+  assert.match(config, /PLAY_STORE_LISTING_BASE/);
+  assert.match(config, /store\/apps\/details\?id=/);
+  assert.match(config, /isClosedTesting/);
+  assert.doesNotMatch(config, /buildPlayStoreUrlWithReferrer/);
 });
 
 test("home page exposes Play Store CTAs and Android banner", () => {
@@ -35,18 +36,23 @@ test("invite page uses shared Play Store config instead of hardcoded URL", () =>
   assert.match(html, /data-play-store-cta/);
   assert.match(html, /app-store-config\.js/);
   assert.match(html, /play-store-cta\.js/);
+  assert.match(html, /invite-bootstrap\.mjs/);
   assert.match(html, /data-play-store-note="closed-testing"/);
   assert.match(html, /supabase\.public\.js/);
   assert.doesNotMatch(html, /play\.google\.com\/store\//);
 });
 
-test("invite config can attach Play referrer without changing invite URL format", () => {
-  const config = read("assets/js/app-store-config.js");
-  assert.match(config, /buildPlayStoreUrlWithReferrer/);
-  assert.match(config, /invite_code=/);
+test("invite flow uses invite-link-utils for Play referrer and records opens", () => {
+  const utils = read("assets/js/invite-link-utils.mjs");
+  assert.match(utils, /buildPlayStoreListingUrl/);
+  assert.match(utils, /invite_code=/);
+  const playStoreCta = read("assets/js/play-store-cta.js");
+  assert.match(playStoreCta, /resolvePlayStoreUrl/);
+  assert.doesNotMatch(playStoreCta, /StayOrPayInviteCode/);
   const invite = read("assets/js/invite.js");
   assert.match(invite, /record_invite_open/);
-  assert.match(invite, /StayOrPayInviteCode/);
+  assert.match(invite, /data-invite-code/);
+  assert.doesNotMatch(invite, /StayOrPayInviteCode/);
   assert.doesNotMatch(invite, /location\.replace/);
 });
 

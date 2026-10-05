@@ -6,9 +6,12 @@
     return;
   }
 
+  var inviteLinks = window.StayOrPayInviteLinks;
+  if (!inviteLinks) {
+    return;
+  }
+
   var LOCALE_STORAGE_KEY = "stayorpay.locale";
-  var UUID_PATTERN =
-    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
   /** @type {Record<string, Record<string, string>>} */
   var TRANSLATIONS = {
@@ -81,36 +84,65 @@
   };
 
   /**
-   * @param {string} locale
+   * @param {string | null | undefined} raw
    * @returns {string}
    */
-  function resolveLocale(locale) {
+  function normalizeInviteLocale(raw) {
+    if (!raw) {
+      return "en";
+    }
+    var base = raw.toLowerCase().split("-")[0];
+    if (TRANSLATIONS[base]) {
+      return base;
+    }
+    return i18n.normalizeLocale(raw);
+  }
+
+  /**
+   * @returns {string}
+   */
+  function detectInviteBrowserLocale() {
+    var languages = window.navigator.languages || [window.navigator.language];
+    for (var i = 0; i < languages.length; i += 1) {
+      var candidate = normalizeInviteLocale(languages[i]);
+      if (candidate === "he" || candidate === "fr") {
+        return candidate;
+      }
+    }
+    return i18n.detectBrowserLocale();
+  }
+
+  /**
+   * @returns {string}
+   */
+  function resolveLocale() {
     var params = new URLSearchParams(window.location.search);
     var requested = params.get("lang");
     if (requested) {
-      return i18n.normalizeLocale(requested);
+      return normalizeInviteLocale(requested);
     }
 
     try {
       var stored = window.localStorage.getItem(LOCALE_STORAGE_KEY);
       if (stored) {
-        return i18n.normalizeLocale(stored);
+        return normalizeInviteLocale(stored);
       }
     } catch (error) {
       /* ignore */
     }
 
-    return i18n.detectBrowserLocale();
+    return detectInviteBrowserLocale();
   }
 
   /**
    * @param {string} locale
    */
   function applyLocale(locale) {
-    var normalized = i18n.normalizeLocale(locale);
+    var normalized = normalizeInviteLocale(locale);
     var strings = TRANSLATIONS[normalized] || TRANSLATIONS.en;
     document.documentElement.lang = normalized;
-    document.documentElement.dir = i18n.directionForLocale(normalized);
+    document.documentElement.dir =
+      normalized === "he" ? "rtl" : i18n.directionForLocale(normalized);
 
     document.querySelectorAll("[data-i18n]").forEach(function (node) {
       var key = node.getAttribute("data-i18n");
@@ -136,53 +168,18 @@
     if (description && strings["meta.description"]) {
       description.setAttribute("content", strings["meta.description"]);
     }
-
-    if (window.StayOrPayPlayStoreCta && window.StayOrPayPlayStoreCta.applyAll) {
-      window.StayOrPayPlayStoreCta.applyAll();
-    }
   }
 
-  /**
-   * @returns {string}
-   */
-  function extractInviteCode() {
-    var params = new URLSearchParams(window.location.search);
-    var fromQuery = params.get("code");
-    if (fromQuery && UUID_PATTERN.test(fromQuery.trim())) {
-      return fromQuery.trim().toLowerCase();
-    }
-
-    var segments = window.location.pathname.split("/").filter(Boolean);
-    var inviteIndex = segments.indexOf("invite");
-    if (inviteIndex !== -1 && segments.length > inviteIndex + 1) {
-      var fromPath = segments[inviteIndex + 1];
-      if (UUID_PATTERN.test(fromPath)) {
-        return fromPath.toLowerCase();
-      }
-    }
-
-    return "";
+  function clearInviteCodeContext() {
+    document.documentElement.removeAttribute("data-invite-code");
   }
 
-  /**
-   * @param {string} code
-   * @returns {string}
-   */
-  function buildAppDeepLink(code) {
-    return "stayorpay://invite?code=" + encodeURIComponent(code);
-  }
-
-  /**
-   * @param {string} code
-   * @returns {string}
-   */
-  function buildHttpsInviteLink(code) {
-    return (
-      "https://stayorpay.app/invite/?code=" + encodeURIComponent(code)
-    );
+  function setInviteCodeContext(code) {
+    document.documentElement.setAttribute("data-invite-code", code);
   }
 
   function showError(messageKey) {
+    clearInviteCodeContext();
     var errorPanel = document.getElementById("invite-error");
     var contentPanel = document.getElementById("invite-content");
     var messageNode = document.getElementById("invite-error-message");
@@ -197,6 +194,12 @@
     }
     if (messageNode && strings[messageKey]) {
       messageNode.textContent = strings[messageKey];
+    }
+  }
+
+  function refreshPlayStoreControls() {
+    if (window.StayOrPayPlayStoreCta && window.StayOrPayPlayStoreCta.applyAll) {
+      window.StayOrPayPlayStoreCta.applyAll();
     }
   }
 
@@ -225,38 +228,41 @@
     var locale = resolveLocale();
     applyLocale(locale);
 
-    var code = extractInviteCode();
+    var code = inviteLinks.extractInviteCode(
+      window.location.search,
+      window.location.pathname,
+    );
     var codeNode = document.getElementById("invite-code-value");
     var openAppButton = document.getElementById("invite-open-app");
     var copyButton = document.getElementById("invite-copy-code");
 
     if (!code) {
       showError("invite.errorMissing");
+      refreshPlayStoreControls();
       return;
     }
 
-    if (!UUID_PATTERN.test(code)) {
+    if (!inviteLinks.isValidInviteCode(code)) {
       showError("invite.errorInvalid");
+      refreshPlayStoreControls();
       return;
     }
+
+    setInviteCodeContext(code);
 
     if (codeNode) {
       codeNode.textContent = code;
     }
 
-    window.StayOrPayInviteCode = code;
-    if (window.StayOrPayPlayStoreCta && window.StayOrPayPlayStoreCta.applyAll) {
-      window.StayOrPayPlayStoreCta.applyAll();
-    }
     recordInviteOpen(code);
 
     if (openAppButton) {
-      openAppButton.href = buildAppDeepLink(code);
+      openAppButton.href = inviteLinks.buildAppDeepLink(code);
       openAppButton.addEventListener("click", function (event) {
         event.preventDefault();
-        window.location.href = buildAppDeepLink(code);
+        window.location.href = inviteLinks.buildAppDeepLink(code);
         window.setTimeout(function () {
-          window.location.href = buildHttpsInviteLink(code);
+          window.location.href = inviteLinks.buildHttpsInviteLink(code);
         }, 1200);
       });
     }
@@ -280,11 +286,9 @@
         copyButton.textContent = strings["invite.copied"];
       });
     }
+
+    refreshPlayStoreControls();
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initInvitePage);
-  } else {
-    initInvitePage();
-  }
+  initInvitePage();
 })();
