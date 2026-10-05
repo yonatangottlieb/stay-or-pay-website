@@ -10,35 +10,50 @@
     return;
   }
 
+  /* Product names use non-breaking spaces so "Google Play" and
+     "Stay or Pay" never split across lines — it reads especially
+     badly inside a right-to-left sentence. */
+  var GOOGLE_PLAY = "Google\u00a0Play";
+  var STAY_OR_PAY = "Stay\u00a0or\u00a0Pay";
+
   var STRINGS = {
     en: {
-      download: "Download from Google Play",
+      download: "Download from " + GOOGLE_PLAY,
       downloadShort: "Download",
-      androidBannerTitle: "Stay or Pay is available on Google Play",
+      androidBannerTitle: STAY_OR_PAY + " is available on " + GOOGLE_PLAY,
       androidBannerAction: "Download",
-      comingSoonNote: "Google Play listing coming soon",
+      comingSoonNote: GOOGLE_PLAY + " listing coming soon",
       closedTestingNote:
-        "Stay or Pay is currently in limited Google Play testing. Testers can install from Play. If you are not a tester, you can still open the app if it is already installed.",
+        STAY_OR_PAY +
+        " is currently in limited " +
+        GOOGLE_PLAY +
+        " testing. Testers can install from Play. If you are not a tester, you can still open the app if it is already installed.",
       iosNote: "iPhone version coming soon",
     },
     he: {
-      download: "הורדה מ־Google Play",
+      download: "הורדה מ־" + GOOGLE_PLAY,
       downloadShort: "להורדה",
-      androidBannerTitle: "Stay or Pay זמינה ב־Google Play",
+      androidBannerTitle: STAY_OR_PAY + " זמינה ב־" + GOOGLE_PLAY,
       androidBannerAction: "להורדה",
-      comingSoonNote: "עמוד Google Play יעלה בקרוב",
+      comingSoonNote: "עמוד " + GOOGLE_PLAY + " יעלה בקרוב",
       closedTestingNote:
-        "Stay or Pay כרגע בגישה מוגבלת ב־Google Play. אם הוזמנת כבודק אפשר להתקין. אם לא, אפשר לפתוח את האפליקציה אם היא כבר מותקנת.",
+        STAY_OR_PAY +
+        " כרגע בגישה מוגבלת ב־" +
+        GOOGLE_PLAY +
+        ". אם הוזמנת כבודק אפשר להתקין. אם לא, אפשר לפתוח את האפליקציה אם היא כבר מותקנת.",
       iosNote: "גרסת iPhone בקרוב",
     },
     fr: {
-      download: "Télécharger sur Google Play",
+      download: "Télécharger sur " + GOOGLE_PLAY,
       downloadShort: "Télécharger",
-      androidBannerTitle: "Stay or Pay est disponible sur Google Play",
+      androidBannerTitle: STAY_OR_PAY + " est disponible sur " + GOOGLE_PLAY,
       androidBannerAction: "Télécharger",
-      comingSoonNote: "Fiche Google Play bientôt disponible",
+      comingSoonNote: "Fiche " + GOOGLE_PLAY + " bientôt disponible",
       closedTestingNote:
-        "Stay or Pay est actuellement en test limité sur Google Play. Les testeurs peuvent installer. Sinon, ouvrez l’app si elle est déjà installée.",
+        STAY_OR_PAY +
+        " est actuellement en test limité sur " +
+        GOOGLE_PLAY +
+        ". Les testeurs peuvent installer. Sinon, ouvrez l’app si elle est déjà installée.",
       iosNote: "Version iPhone bientôt disponible",
     },
   };

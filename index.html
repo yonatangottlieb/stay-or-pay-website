@@ -2,11 +2,11 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>STAY OR PAY — Stay focused. Or pay.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Stay or Pay — Stay focused. Or pay.</title>
     <meta
       name="description"
-      content="STAY OR PAY turns your focus sessions into real commitments. Set a timer, stay until it ends, and keep your word. Coming soon to Google Play."
+      content="Stay or Pay turns your focus sessions into real commitments. Set a timer, stay until it ends, and keep your word. Download from Google Play."
     />
     <meta
       name="keywords"
@@ -17,23 +17,23 @@
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://stayorpay.app/" />
-    <meta property="og:title" content="STAY OR PAY — Stay focused. Or pay." />
+    <meta property="og:title" content="Stay or Pay — Stay focused. Or pay." />
     <meta
       property="og:description"
-      content="STAY OR PAY turns your focus sessions into real commitments. Set a timer, stay until it ends, and keep your word."
+      content="Stay or Pay turns your focus sessions into real commitments. Set a timer, stay until it ends, and keep your word."
     />
     <meta property="og:image" content="https://stayorpay.app/assets/images/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="STAY OR PAY" />
+    <meta property="og:site_name" content="Stay or Pay" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:locale:alternate" content="he_IL" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="STAY OR PAY — Stay focused. Or pay." />
+    <meta name="twitter:title" content="Stay or Pay — Stay focused. Or pay." />
     <meta
       name="twitter:description"
-      content="STAY OR PAY turns your focus sessions into real commitments. Set a timer, stay until it ends, and keep your word."
+      content="Stay or Pay turns your focus sessions into real commitments. Set a timer, stay until it ends, and keep your word."
     />
     <meta name="twitter:image" content="https://stayorpay.app/assets/images/og-image.png" />
 
@@ -44,59 +44,117 @@
     <link rel="manifest" href="/manifest.json" />
 
     <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/home.css" />
   </head>
-  <body class="page-landing">
-    <a class="skip-link" href="#main">Skip to content</a>
+  <body class="page-landing page-home">
+    <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
 
     <header class="landing-header" id="top">
       <div class="landing-header__inner">
-        <a class="brand" href="/" aria-label="STAY OR PAY home">
-          <img
-            class="brand-logo"
-            src="/assets/images/logo.svg"
-            width="40"
-            height="40"
-            alt=""
-          />
-          <span class="brand-name">STAY OR PAY</span>
+        <a class="brand" href="/" data-i18n-aria="brand.home" aria-label="Stay or Pay home">
+          <img class="brand-logo" src="/assets/images/logo.svg" width="28" height="28" alt="" />
+          <span class="brand-name">Stay or Pay</span>
         </a>
 
-        <nav class="landing-nav" aria-label="Primary">
-          <a class="landing-nav__link" href="#why" data-i18n="nav.about">About</a>
+        <nav class="landing-nav" id="site-nav" aria-label="Primary">
           <a class="landing-nav__link" href="#how-it-works" data-i18n="nav.howItWorks">How it works</a>
+          <a class="landing-nav__link" href="#why" data-i18n="nav.about">About</a>
           <a class="landing-nav__link" href="#contact" data-i18n="nav.contact">Contact</a>
-          <a class="landing-nav__link" data-doc-link="privacy" href="/privacy/en/" data-i18n="nav.privacy">Privacy</a>
-          <a class="landing-nav__link" data-doc-link="terms" href="/terms/en/" data-i18n="nav.terms">Terms</a>
+          <a class="landing-nav__link landing-nav__link--legal" data-doc-link="privacy" href="/privacy/en/" data-i18n="nav.privacy">Privacy</a>
+          <a class="landing-nav__link landing-nav__link--legal" data-doc-link="terms" href="/terms/en/" data-i18n="nav.terms">Terms</a>
         </nav>
 
-        <nav class="lang-switch" aria-label="Language">
-          <button type="button" class="lang-switch__btn is-active" data-set-locale="en" aria-pressed="true">EN</button>
-          <span class="lang-switch__sep" aria-hidden="true">|</span>
-          <button type="button" class="lang-switch__btn" data-set-locale="he" aria-pressed="false">HE</button>
-        </nav>
+        <div class="landing-header__tools">
+          <nav class="lang-switch" aria-label="Language">
+            <button type="button" class="lang-switch__btn is-active" data-set-locale="en" aria-pressed="true">EN</button>
+            <button type="button" class="lang-switch__btn" data-set-locale="he" aria-pressed="false">HE</button>
+          </nav>
+          <button
+            type="button"
+            class="nav-toggle"
+            data-nav-toggle
+            aria-controls="site-nav"
+            aria-expanded="false"
+            data-i18n-aria="nav.menu"
+            aria-label="Menu"
+          >
+            <span class="nav-toggle__mark" aria-hidden="true"></span>
+          </button>
+        </div>
       </div>
-
-      <nav class="landing-nav-mobile" aria-label="Primary mobile">
-        <a class="landing-nav-mobile__link" href="#why" data-i18n="nav.about">About</a>
-        <a class="landing-nav-mobile__link" href="#how-it-works" data-i18n="nav.howItWorks">How it works</a>
-        <a class="landing-nav-mobile__link" href="#contact" data-i18n="nav.contact">Contact</a>
-        <a class="landing-nav-mobile__link" data-doc-link="privacy" href="/privacy/en/" data-i18n="nav.privacy">Privacy</a>
-        <a class="landing-nav-mobile__link" data-doc-link="terms" href="/terms/en/" data-i18n="nav.terms">Terms</a>
-      </nav>
     </header>
 
+    <div class="nav-scrim" data-nav-scrim hidden></div>
+
     <main id="main">
-      <section class="hero" id="hero" aria-labelledby="hero-heading">
-        <div class="hero__content">
-          <p class="eyebrow" data-i18n="hero.eyebrow">A real commitment to focus</p>
-          <h1 class="hero__title" id="hero-heading" data-i18n-html="hero.headline">
-            Stay focused.<br />Or pay.
-          </h1>
-          <p class="hero__subtitle" data-i18n-html="hero.subheadline">
-            STAY OR PAY turns your focus sessions into real commitments.<br />
-            Set a timer, stay until it ends, and keep your word.
-          </p>
-          <div class="hero__actions">
+      <!-- ─────────────────────────  THE DECISION  ───────────────────────── -->
+      <section class="threshold" id="hero" aria-labelledby="hero-heading">
+        <div class="threshold__room" aria-hidden="true"></div>
+
+        <div class="threshold__inner">
+          <div class="threshold__words">
+            <h1 class="threshold__title" id="hero-heading" data-i18n-html="hero.headline">
+              <span class="tline tline--hold">Stay focused.</span>
+              <span class="tline tline--stake">Or pay.</span>
+            </h1>
+            <p class="threshold__lede" data-i18n-html="hero.subheadline">
+              Set a timer, stay until it ends,<br />and keep your word.
+            </p>
+          </div>
+
+          <div class="threshold__instrument">
+            <div class="dial" data-dial>
+              <div class="dial__ring" data-dial-ring aria-hidden="true">
+                <svg class="ring" viewBox="0 0 220 220" focusable="false">
+                  <circle class="ring__track" cx="110" cy="110" r="100" pathLength="100" />
+                  <circle class="ring__arc" cx="110" cy="110" r="100" pathLength="100" />
+                  <circle class="ring__knob" cx="110" cy="10" r="5.5" />
+                </svg>
+                <span class="ring__bloom"></span>
+              </div>
+              <p class="dial__readout" aria-hidden="true">
+                <span class="dial__time" data-dial-time dir="ltr">25:00</span>
+              </p>
+            </div>
+
+            <div class="picker" role="radiogroup" aria-labelledby="picker-label" data-picker>
+              <span class="picker__label" id="picker-label" data-i18n="mockup.stepTime">Choose time</span>
+              <span class="picker__options">
+                <button
+                  type="button"
+                  class="picker__option is-chosen"
+                  role="radio"
+                  aria-checked="true"
+                  tabindex="0"
+                  data-minutes="25"
+                  data-i18n-aria="time.25.long"
+                  aria-label="25 minutes"
+                ><span data-i18n="time.25">25 min</span></button>
+                <button
+                  type="button"
+                  class="picker__option"
+                  role="radio"
+                  aria-checked="false"
+                  tabindex="-1"
+                  data-minutes="45"
+                  data-i18n-aria="time.45.long"
+                  aria-label="45 minutes"
+                ><span data-i18n="time.45">45 min</span></button>
+                <button
+                  type="button"
+                  class="picker__option"
+                  role="radio"
+                  aria-checked="false"
+                  tabindex="-1"
+                  data-minutes="60"
+                  data-i18n-aria="time.60.long"
+                  aria-label="1 hour"
+                ><span data-i18n="time.60">1 hr</span></button>
+              </span>
+            </div>
+          </div>
+
+          <div class="threshold__actions">
             <a
               class="btn btn-primary"
               href="#"
@@ -106,141 +164,176 @@
               data-i18n="hero.ctaPrimary"
               >Download from Google Play</a
             >
-            <p
-              class="hero__ios-note"
-              data-ios-coming-soon
-              hidden
-              data-i18n="hero.iosNote"
-            >
+            <a class="quiet-link" href="#how-it-works" data-i18n="hero.ctaSecondary">See how it works</a>
+            <p class="store-note" data-ios-coming-soon hidden data-i18n="hero.iosNote">
               iPhone version coming soon
             </p>
-            <a class="btn btn-secondary" href="#how-it-works" data-i18n="hero.ctaSecondary">See how it works</a>
-          </div>
-          <p
-            class="hero__play-note"
-            data-play-store-note="coming-soon"
-            data-platform-hidden="ios"
-            data-i18n="hero.playNote"
-          >
-            Google Play listing coming soon
-          </p>
-        </div>
-
-        <div class="product-visual" id="product" aria-label="App preview">
-          <div class="product-visual__stage">
-            <figure class="phone-mockup phone-mockup--back phone-mockup--left" aria-hidden="true">
-              <div class="phone-mockup__frame">
-                <div class="phone-mockup__screen">
-                  <div class="app-screen app-screen--focus">
-                    <p class="app-screen__label" data-i18n="mockup.focusLabel">Focus session</p>
-                    <p class="app-screen__timer">24:37</p>
-                    <p class="app-screen__commitment" data-i18n="mockup.commitment">Finish my study session</p>
-                  </div>
-                </div>
-              </div>
-            </figure>
-
-            <figure class="phone-mockup phone-mockup--center">
-              <figcaption class="visually-hidden" data-i18n="mockup.homeCaption">STAY OR PAY home screen</figcaption>
-              <div class="phone-mockup__frame">
-                <div class="phone-mockup__screen">
-                  <div class="app-screen app-screen--home">
-                    <p class="app-screen__brand">
-                      <span>STAY OR </span><span class="app-screen__brand-accent">PAY</span>
-                    </p>
-                    <p class="app-screen__tagline" data-i18n="mockup.tagline">Stay focused. Or pay the price.</p>
-                    <p class="app-screen__step" data-i18n="mockup.stepTime">Choose time</p>
-                    <div class="app-screen__pills">
-                      <span class="app-pill app-pill--active">25 min</span>
-                      <span class="app-pill">45 min</span>
-                      <span class="app-pill">1 hr</span>
-                    </div>
-                    <div class="app-screen__cta" data-i18n="mockup.continue">Continue</div>
-                  </div>
-                </div>
-              </div>
-            </figure>
-
-            <figure class="phone-mockup phone-mockup--back phone-mockup--right" aria-hidden="true">
-              <div class="phone-mockup__frame">
-                <div class="phone-mockup__screen">
-                  <div class="app-screen app-screen--complete">
-                    <p class="app-screen__complete-title" data-i18n="mockup.completeTitle">Session complete</p>
-                    <p class="app-screen__complete-stat">+25 min</p>
-                    <p class="app-screen__complete-sub" data-i18n="mockup.completeSub">Life reclaimed</p>
-                  </div>
-                </div>
-              </div>
-            </figure>
+            <p
+              class="store-note"
+              data-play-store-note="coming-soon"
+              data-platform-hidden="ios"
+              data-i18n="hero.playNote"
+            >
+              Google Play listing coming soon
+            </p>
           </div>
         </div>
       </section>
 
-      <section class="section section--steps" id="how-it-works" aria-labelledby="how-heading">
-        <div class="section__inner">
-          <h2 class="section__title" id="how-heading" data-i18n="how.title">How it works</h2>
-          <ol class="steps-list">
-            <li class="steps-list__item">
-              <span class="steps-list__number" aria-hidden="true">01</span>
-              <div class="steps-list__body">
-                <h3 class="steps-list__heading" data-i18n="how.step1.title">Set your commitment</h3>
-                <p class="steps-list__text" data-i18n="how.step1.text">Choose how long you want to stay focused.</p>
+      <!-- ─────────────────────────  THE SETUP  ───────────────────────── -->
+      <section class="setup" id="how-it-works" aria-labelledby="setup-heading">
+        <div class="shell">
+          <p class="kicker" data-i18n="how.kicker">Before the session</p>
+          <h2 class="setup__title" id="setup-heading" data-i18n="how.title">How it works</h2>
+
+          <ol class="setup__beats">
+            <li class="setup__beat" data-enter>
+              <span class="setup__index" aria-hidden="true">01</span>
+              <h3 class="setup__beat-title" data-i18n="how.step1.title">Choose your time</h3>
+              <p class="setup__beat-text" data-i18n="how.step1.text">
+                Choose how long you want to stay focused.
+              </p>
+              <div class="setup__artifact setup__artifact--chips" aria-hidden="true">
+                <span class="chip" data-mirror-minutes="25" data-i18n="time.25">25 min</span>
+                <span class="chip" data-mirror-minutes="45" data-i18n="time.45">45 min</span>
+                <span class="chip" data-mirror-minutes="60" data-i18n="time.60">1 hr</span>
               </div>
             </li>
-            <li class="steps-list__item">
-              <span class="steps-list__number" aria-hidden="true">02</span>
-              <div class="steps-list__body">
-                <h3 class="steps-list__heading" data-i18n="how.step2.title">Start the session</h3>
-                <p class="steps-list__text" data-i18n="how.step2.text">Your timer begins and your commitment becomes real.</p>
+
+            <li class="setup__beat" data-enter>
+              <span class="setup__index" aria-hidden="true">02</span>
+              <h3 class="setup__beat-title" data-i18n="how.step2.title">Give your word</h3>
+              <p class="setup__beat-text" data-i18n="how.step2.text">
+                Choose the person you are giving your word to. They get an invite and decide whether to connect.
+              </p>
+              <div class="setup__artifact setup__artifact--pair" aria-hidden="true">
+                <span class="pair__dot"></span>
+                <span class="pair__thread"></span>
+                <span class="pair__dot pair__dot--them"></span>
               </div>
             </li>
-            <li class="steps-list__item">
-              <span class="steps-list__number" aria-hidden="true">03</span>
-              <div class="steps-list__body">
-                <h3 class="steps-list__heading" data-i18n="how.step3.title">Stay or pay</h3>
-                <p class="steps-list__text" data-i18n="how.step3.text">Finish the session and keep your commitment. Leave early, and the consequence applies.</p>
+
+            <li class="setup__beat" data-enter>
+              <span class="setup__index" aria-hidden="true">03</span>
+              <h3 class="setup__beat-title" data-i18n="how.step3.title">Name the commitment</h3>
+              <p class="setup__beat-text" data-i18n="how.step3.text">
+                Write what you are going to do in that time.
+              </p>
+              <div class="setup__artifact setup__artifact--note" aria-hidden="true">
+                <span class="note__text" data-i18n="mockup.commitment">Finish my study session</span>
+                <span class="note__caret"></span>
               </div>
             </li>
           </ol>
         </div>
       </section>
 
-      <section class="section section--why" id="why" aria-labelledby="why-heading">
-        <div class="section__inner">
-          <h2 class="section__title" id="why-heading" data-i18n="why.title">Why STAY OR PAY works</h2>
-          <ul class="why-list">
-            <li class="why-list__item">
-              <h3 class="why-list__heading" data-i18n="why.item1.title">Real accountability</h3>
-              <p class="why-list__text" data-i18n="why.item1.text">Your commitment has a real consequence.</p>
+      <!-- ─────────────────────────  THE SESSION  ───────────────────────── -->
+      <section class="session" id="focus" aria-labelledby="session-heading">
+        <div class="shell session__intro">
+          <p class="kicker" data-i18n="session.kicker">The session</p>
+          <h2 class="session__title" id="session-heading" data-i18n="session.title">Start the session</h2>
+          <p class="session__lede" data-i18n="session.text">
+            Your timer begins and your commitment becomes real.
+          </p>
+          <p class="session__hint" data-i18n="session.hint">Then you put the phone down.</p>
+        </div>
+
+        <div class="session__track" data-session>
+          <div class="session__stage">
+            <div class="session__glow" aria-hidden="true"></div>
+
+            <figure class="phone">
+              <figcaption class="visually-hidden" data-i18n="mockup.heroCaption">
+                Stay or Pay focus session
+              </figcaption>
+              <div class="phone__chassis">
+                <div class="phone__screen">
+                  <div class="screen__chrome" aria-hidden="true">
+                    <span class="screen__clock">9:41</span>
+                    <span class="screen__island"></span>
+                    <span class="screen__battery"></span>
+                  </div>
+                  <p class="screen__label" data-i18n="mockup.focusLabel">Focus session</p>
+                  <div class="live" data-session-ring>
+                    <svg class="ring ring--live" viewBox="0 0 220 220" aria-hidden="true" focusable="false">
+                      <circle class="ring__track" cx="110" cy="110" r="100" pathLength="100" />
+                      <circle class="ring__arc" cx="110" cy="110" r="100" pathLength="100" />
+                    </svg>
+                    <p class="live__time" dir="ltr" data-session-time>25:00</p>
+                  </div>
+                  <p class="screen__commitment" data-i18n="mockup.commitment">Finish my study session</p>
+                  <span class="screen__indicator" aria-hidden="true"></span>
+                </div>
+              </div>
+            </figure>
+
+            <div class="session__voice">
+              <p class="session__line" data-session-line="0" data-i18n="focus.line1">Your goals matter.</p>
+              <p class="session__line" data-session-line="1" data-i18n="focus.line2">Your time matters.</p>
+              <p class="session__line session__line--accent" data-session-line="2" data-i18n="focus.line3">
+                Keep your commitment.
+              </p>
+            </div>
+
+            <div class="session__resolve" data-session-resolve>
+              <p class="resolve__title" data-i18n="mockup.completeTitle">Session complete</p>
+              <p class="resolve__stat" dir="ltr" data-session-stat>+25 min</p>
+              <p class="resolve__sub" data-i18n="mockup.completeSub">Life reclaimed</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────────────────────  THE OUTCOME  ───────────────────────── -->
+      <section class="outcome" aria-labelledby="outcome-heading">
+        <div class="shell outcome__inner">
+          <h2 class="outcome__title" id="outcome-heading" data-i18n-html="outcome.title">
+            <span class="tline tline--hold">Stay.</span> <span class="tline tline--stake">Or pay.</span>
+          </h2>
+          <p class="outcome__text" data-i18n="outcome.text">
+            Finish the session and keep your commitment. Leave early, and the consequence applies.
+          </p>
+        </div>
+      </section>
+
+      <!-- ─────────────────────────  WHY  ───────────────────────── -->
+      <section class="reasons" id="why" aria-labelledby="why-heading">
+        <div class="shell">
+          <p class="kicker" data-i18n="why.kicker">About</p>
+          <h2 class="reasons__title" id="why-heading" data-i18n="why.title">Why Stay or Pay works</h2>
+          <ul class="reasons__list">
+            <li class="reasons__item" data-enter>
+              <h3 class="reasons__heading" data-i18n="why.item1.title">Real accountability</h3>
+              <p class="reasons__text" data-i18n="why.item1.text">Your commitment has a real consequence.</p>
             </li>
-            <li class="why-list__item">
-              <h3 class="why-list__heading" data-i18n="why.item2.title">Simple by design</h3>
-              <p class="why-list__text" data-i18n="why.item2.text">No complicated systems. Just choose, start, and stay.</p>
+            <li class="reasons__item" data-enter>
+              <h3 class="reasons__heading" data-i18n="why.item2.title">Simple by design</h3>
+              <p class="reasons__text" data-i18n="why.item2.text">
+                No complicated systems. Just choose, start, and stay.
+              </p>
             </li>
-            <li class="why-list__item">
-              <h3 class="why-list__heading" data-i18n="why.item3.title">Built for deep focus</h3>
-              <p class="why-list__text" data-i18n="why.item3.text">Designed for studying, working, creating, exercising, and building.</p>
+            <li class="reasons__item" data-enter>
+              <h3 class="reasons__heading" data-i18n="why.item3.title">Built for deep focus</h3>
+              <p class="reasons__text" data-i18n="why.item3.text">
+                Designed for studying, working, creating, exercising, and building.
+              </p>
             </li>
-            <li class="why-list__item">
-              <h3 class="why-list__heading" data-i18n="why.item4.title">Practice without risk</h3>
-              <p class="why-list__text" data-i18n="why.item4.text">You can also use Practice mode without putting money at risk.</p>
+            <li class="reasons__item" data-enter>
+              <h3 class="reasons__heading" data-i18n="why.item4.title">Practice without risk</h3>
+              <p class="reasons__text" data-i18n="why.item4.text">
+                You can also use Practice mode without putting money at risk.
+              </p>
             </li>
           </ul>
         </div>
       </section>
 
-      <section class="focus-statement" id="focus" aria-label="Focus statement">
-        <div class="focus-statement__inner">
-          <p class="focus-statement__line" data-i18n="focus.line1">Your goals matter.</p>
-          <p class="focus-statement__line" data-i18n="focus.line2">Your time matters.</p>
-          <p class="focus-statement__line focus-statement__line--accent" data-i18n="focus.line3">Keep your commitment.</p>
-        </div>
-      </section>
-
-      <section class="section section--cta" id="download" aria-labelledby="cta-heading">
-        <div class="section__inner section__inner--narrow">
-          <h2 class="section__title" id="cta-heading" data-i18n="cta.title">Ready to stay focused?</h2>
-          <p class="section__lead" data-i18n="cta.text">
+      <!-- ─────────────────────────  CLOSE  ───────────────────────── -->
+      <section class="close" id="download" aria-labelledby="cta-heading">
+        <div class="shell close__inner">
+          <h2 class="close__title" id="cta-heading" data-i18n="cta.title">Ready to stay focused?</h2>
+          <p class="close__lead" data-i18n="cta.text">
             Download Stay or Pay from Google Play and turn focus into a real commitment.
           </p>
           <a
@@ -253,46 +346,42 @@
             >Download from Google Play</a
           >
           <p
-            class="cta-play-note"
+            class="store-note"
             data-play-store-note="coming-soon"
             data-platform-hidden="ios"
             data-i18n="cta.playNote"
           >
             Google Play listing coming soon
           </p>
-          <p
-            class="cta-ios-note"
-            data-ios-coming-soon
-            hidden
-            data-i18n="cta.iosNote"
-          >
+          <p class="store-note" data-ios-coming-soon hidden data-i18n="cta.iosNote">
             iPhone version coming soon
           </p>
         </div>
       </section>
 
-      <section class="section section--contact" id="contact" aria-labelledby="contact-heading">
-        <div class="section__inner section__inner--narrow">
-          <h2 class="section__title section__title--small" id="contact-heading" data-i18n="contact.title">Contact</h2>
-          <p class="contact-lead" data-i18n="contact.lead">For support or privacy-related questions:</p>
-          <p class="contact-email">
-            <a href="mailto:support@stayorpay.app">support@stayorpay.app</a>
+      <section class="contact" id="contact" aria-labelledby="contact-heading">
+        <div class="shell contact__inner">
+          <h2 class="contact__title" id="contact-heading" data-i18n="contact.title">Contact</h2>
+          <p class="contact__lead" data-i18n="contact.lead">For support or privacy-related questions:</p>
+          <p class="contact__email">
+            <a href="mailto:support@stayorpay.app" dir="ltr">support@stayorpay.app</a>
           </p>
         </div>
       </section>
     </main>
 
     <footer class="landing-footer">
-      <div class="landing-footer__inner">
+      <div class="shell landing-footer__inner">
         <p class="landing-footer__copy">
-          &copy; <span id="year"></span> STAY OR PAY. <span data-i18n="footer.rights">All rights reserved.</span>
+          &copy; <span id="year"></span> <span lang="en" dir="ltr">Stay or Pay</span>.
+          <span data-i18n="footer.rights">All rights reserved.</span>
         </p>
         <nav class="landing-footer__links" aria-label="Footer">
           <a data-doc-link="privacy" href="/privacy/en/" data-i18n="footer.privacy">Privacy Policy</a>
           <a data-doc-link="terms" href="/terms/en/" data-i18n="footer.terms">Terms of Service</a>
           <a href="/data-deletion/" data-i18n="footer.deleteAccount">Delete Account and Data</a>
           <a data-doc-link="data-deletion" href="/data-deletion/en/" data-i18n="footer.dataDeletion">Data Deletion Policy</a>
-          <a href="mailto:support@stayorpay.app">support@stayorpay.app</a>
+          <a href="mailto:support@stayorpay.app" dir="ltr">support@stayorpay.app</a>
         </nav>
       </div>
     </footer>

@@ -1,0 +1,2054 @@
+/* ============================================================
+   Stay or Pay — landing page.
+   Scoped to .page-home so the invite, legal and account pages
+   keep using style.css untouched.
+
+   The page is paced like a focus session: the decision is quick
+   and lit, the session is long and dark, the outcome returns the
+   light. One light source — the session ring — lights every scene.
+   ============================================================ */
+
+.page-home {
+  /* Ink — a tonal ladder, not a single black. */
+  --ink-900: #050609;
+  --ink-850: #07080c;
+  --ink-800: #0a0a0f;
+  --ink-750: #0d0e14;
+  --ink-700: #12131a;
+  --ink-650: #191a22;
+  --ink-600: #21222b;
+
+  --fg: #f5f5f7;
+  --fg-2: #c6c7cf;
+  --fg-3: #8c8e98;
+
+  --teal: #11bcac;
+  --teal-lift: #3fd6c7;
+  --teal-dim: rgba(17, 188, 172, 0.16);
+  --on-teal: #04211e;
+
+  --hairline: rgba(255, 255, 255, 0.1);
+  --hairline-soft: rgba(255, 255, 255, 0.055);
+
+  --gutter: 1.5rem;
+  --measure: 68rem;
+  --chrome: 3.5rem;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-press: cubic-bezier(0.3, 0, 0.7, 1);
+
+  background: var(--ink-800);
+  color: var(--fg);
+  color-scheme: dark;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (min-width: 480px) {
+  .page-home {
+    --gutter: 2rem;
+  }
+}
+
+@media (min-width: 1040px) {
+  .page-home {
+    --gutter: 2.5rem;
+  }
+}
+
+.page-home .shell {
+  width: min(100% - var(--gutter) * 2, var(--measure));
+  margin-inline: auto;
+}
+
+.page-home p {
+  text-wrap: pretty;
+}
+
+
+.page-home main section {
+  scroll-margin-top: calc(var(--chrome) + 1rem);
+}
+
+/* ── Type ────────────────────────────────────────────────────
+   Tracking and leading are set per optical size: display sizes
+   tighten, body sits near zero. Hebrew gets its own values —
+   it has no case, no ascender-light forms, and reads badly
+   with the negative tracking Latin display type wants.         */
+
+.page-home .display {
+  font-size: clamp(2.6rem, 7.6vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.042em;
+  font-optical-sizing: auto;
+  margin: 0;
+}
+
+html[lang="he"] .page-home .display {
+  font-weight: 600;
+  line-height: 1.16;
+  letter-spacing: -0.004em;
+}
+
+.page-home .title {
+  margin: 0;
+  font-size: clamp(1.9rem, 4.2vw, 3rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.032em;
+}
+
+html[lang="he"] .page-home .title {
+  line-height: 1.26;
+  letter-spacing: 0;
+}
+
+.page-home .kicker {
+  margin: 0 0 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+
+html[lang="he"] .page-home .kicker {
+  letter-spacing: 0.04em;
+  text-transform: none;
+  font-size: 0.8125rem;
+}
+
+.page-home .tline {
+  display: block;
+}
+
+.page-home .tline--stake {
+  color: var(--fg-3);
+  font-weight: 400;
+  letter-spacing: -0.034em;
+}
+
+html[lang="he"] .page-home .tline--stake {
+  font-weight: 400;
+  letter-spacing: 0;
+  color: #9fa1aa;
+}
+
+/* ── Floating chrome ─────────────────────────────────────────
+   The header is a material the page scrolls under, not a bar
+   that eats a strip of the layout. At the top of the page it is
+   not there at all, so the first scene is one unbroken room.    */
+
+.page-home .landing-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  padding-top: env(safe-area-inset-top, 0px);
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.page-home .landing-header.is-floating {
+  background: rgba(8, 9, 12, 0.72);
+  backdrop-filter: blur(24px) saturate(170%);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+}
+
+/* A scroll edge, not a divider line. */
+.page-home .landing-header.is-floating::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 100%;
+  height: 1.25rem;
+  background: linear-gradient(to bottom, rgba(8, 9, 12, 0.55), transparent);
+  pointer-events: none;
+}
+
+.page-home .landing-header__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: min(100% - var(--gutter) * 2, var(--measure));
+  margin-inline: auto;
+  padding-block: 0.4rem;
+  min-height: var(--chrome);
+  flex-wrap: nowrap;
+}
+
+.page-home .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+  color: var(--fg);
+}
+
+.page-home .brand-logo {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+}
+
+.page-home .brand-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+}
+
+.page-home .landing-header__tools {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-inline-start: auto;
+  flex-shrink: 0;
+}
+
+/* Language: a segmented control, quiet until it matters. */
+.page-home .lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.page-home .lang-switch__sep {
+  display: none;
+}
+
+.page-home .lang-switch__btn {
+  min-width: 2.5rem;
+  min-height: 2rem;
+  padding: 0 0.6rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--fg-3);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.page-home .lang-switch__btn.is-active {
+  color: var(--fg);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.page-home .lang-switch__btn:hover {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.page-home .lang-switch__btn:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+.page-home .nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--fg);
+  cursor: pointer;
+}
+
+.page-home .nav-toggle:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+.page-home .nav-toggle__mark,
+.page-home .nav-toggle__mark::before,
+.page-home .nav-toggle__mark::after {
+  display: block;
+  width: 17px;
+  height: 1.5px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform 0.36s var(--ease), opacity 0.2s ease;
+}
+
+.page-home .nav-toggle__mark {
+  position: relative;
+}
+
+.page-home .nav-toggle__mark::before,
+.page-home .nav-toggle__mark::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+}
+
+.page-home .nav-toggle__mark::before {
+  transform: translateY(-5px);
+}
+
+.page-home .nav-toggle__mark::after {
+  transform: translateY(5px);
+}
+
+.page-home.is-nav-open .nav-toggle__mark {
+  background: transparent;
+}
+
+.page-home.is-nav-open .nav-toggle__mark::before {
+  transform: rotate(45deg);
+}
+
+.page-home.is-nav-open .nav-toggle__mark::after {
+  transform: rotate(-45deg);
+}
+
+.page-home .landing-nav {
+  display: none;
+}
+
+.page-home .landing-nav__link {
+  color: var(--fg-2);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.006em;
+  text-decoration: none;
+}
+
+.page-home .landing-nav__link:hover,
+.page-home .landing-nav__link:focus-visible {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.page-home .landing-nav__link:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+@media (max-width: 959px) {
+  /* The sheet grows from the button that opened it. */
+  .page-home .landing-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    position: absolute;
+    top: 100%;
+    inset-inline: 0;
+    padding: 0.25rem var(--gutter) 1.25rem;
+    background: rgba(9, 10, 14, 0.9);
+    backdrop-filter: blur(28px) saturate(170%);
+    -webkit-backdrop-filter: blur(28px) saturate(170%);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    transform-origin: top right;
+    transform: translateY(-0.4rem) scale(0.97);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.26s var(--ease), transform 0.42s var(--ease), visibility 0.26s linear;
+  }
+
+  [dir="rtl"] .page-home .landing-nav {
+    transform-origin: top left;
+  }
+
+  .page-home.is-nav-open .landing-nav {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+  }
+
+  .page-home .landing-nav__link {
+    padding-block: 0.85rem;
+    font-size: 1rem;
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+
+  .page-home .landing-nav__link:last-child {
+    border-bottom: 0;
+  }
+
+  .page-home .nav-scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.26s var(--ease), visibility 0.26s linear;
+  }
+
+  .page-home.is-nav-open .nav-scrim {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .page-home.is-nav-open {
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 960px) {
+  .page-home .nav-toggle,
+  .page-home .nav-scrim {
+    display: none;
+  }
+
+  .page-home .landing-nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-inline-start: 2.75rem;
+  }
+
+  .page-home .landing-nav__link {
+    font-size: 0.8125rem;
+    color: var(--fg-3);
+  }
+
+  .page-home .landing-nav__link--legal {
+    display: none;
+  }
+}
+
+/* ── Controls ───────────────────────────────────────────────── */
+
+.page-home .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.8rem 1.4rem;
+  border: 0;
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 110ms var(--ease-press), background-color 180ms ease;
+}
+
+.page-home .btn-primary {
+  background: var(--teal);
+  color: var(--on-teal);
+}
+
+.page-home .btn-primary:hover,
+.page-home .btn-primary:focus-visible {
+  background: var(--teal-lift);
+  color: var(--on-teal);
+  text-decoration: none;
+}
+
+.page-home .btn:active {
+  transform: scale(0.97);
+}
+
+.page-home .btn.is-disabled,
+.page-home .btn.is-disabled:active {
+  transform: none;
+}
+
+.page-home .btn:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+
+.page-home .btn-primary--large {
+  min-height: 3.25rem;
+  padding-inline: 1.9rem;
+  font-size: 1rem;
+}
+
+.page-home .quiet-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--fg-2);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.page-home .quiet-link:hover,
+.page-home .quiet-link:focus-visible {
+  color: var(--teal-lift);
+  text-decoration: none;
+}
+
+.page-home .quiet-link:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.page-home .store-note {
+  margin: 0;
+  width: 100%;
+  color: var(--fg-3);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+/* ── The ring ────────────────────────────────────────────────
+   One object, drawn the same way everywhere on the page: the
+   session you set in the hero is the session that runs later.  */
+
+.page-home .ring {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  overflow: visible;
+}
+
+.page-home .ring__track,
+.page-home .ring__arc {
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+}
+
+.page-home .ring__track {
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 3;
+}
+
+.page-home .ring__arc {
+  stroke: var(--teal);
+  stroke-width: 3.6;
+  stroke-dashoffset: calc(100 - var(--arc, 100));
+}
+
+.page-home .ring__knob {
+  fill: var(--teal-lift);
+  transform-box: view-box;
+  transform-origin: 110px 110px;
+  transform: rotate(var(--angle, 150deg));
+}
+
+/* ── Scene 1 · The decision ─────────────────────────────────── */
+
+.page-home .threshold {
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  margin-top: calc(-1 * (var(--chrome) + env(safe-area-inset-top, 0px)));
+  padding-top: calc(var(--chrome) + env(safe-area-inset-top, 0px));
+  display: flex;
+  background: var(--ink-850);
+  overflow: hidden;
+}
+
+/* The room: light falls from the ring and the corners fall away.
+   The vignette is what stops the teal reading as fog. */
+.page-home .threshold__room {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 26% at 50% 70%, rgba(17, 188, 172, 0.07), transparent 72%),
+    radial-gradient(78% 60% at 50% 52%, rgba(17, 188, 172, 0.045), transparent 70%),
+    radial-gradient(78% 66% at 50% 48%, transparent 30%, rgba(4, 5, 7, 0.55) 78%, rgba(4, 5, 7, 0.9) 100%);
+}
+
+.page-home .threshold::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 7rem;
+  z-index: 2;
+  background: linear-gradient(to bottom, transparent, var(--ink-800));
+  pointer-events: none;
+}
+
+.page-home .threshold__inner {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+  max-width: calc(var(--measure) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  padding-block: clamp(1.25rem, 3.5vh, 2.75rem)
+    calc(clamp(1.75rem, 5vh, 3.5rem) + var(--install-bar, 0px));
+  gap: clamp(1.1rem, 3vh, 2.25rem);
+}
+
+.page-home .threshold__words {
+  max-width: 24rem;
+}
+
+html[lang="he"] .page-home .threshold__words {
+  max-width: 26rem;
+}
+
+.page-home .threshold__title {
+  margin: 0 0 0.6rem;
+  font-size: clamp(2.3rem, 9vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.042em;
+  font-optical-sizing: auto;
+}
+
+html[lang="he"] .page-home .threshold__title {
+  line-height: 1.18;
+  letter-spacing: -0.004em;
+}
+
+.page-home .threshold__lede {
+  margin: 0;
+  font-size: clamp(0.9375rem, 3.6vw, 1.0625rem);
+  line-height: 1.5;
+  letter-spacing: -0.008em;
+  color: var(--fg-3);
+  text-wrap: balance;
+}
+
+html[lang="he"] .page-home .threshold__lede {
+  line-height: 1.68;
+  letter-spacing: 0;
+}
+
+.page-home .threshold__instrument {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: clamp(0.9rem, 2.2vh, 1.5rem);
+  min-height: 0;
+}
+
+/* The dial — the first thing the app asks you, asked here. */
+
+.page-home .dial {
+  --dial-size: min(62vw, 34svh, 20rem);
+  position: relative;
+  width: var(--dial-size);
+  height: var(--dial-size);
+  display: grid;
+  place-items: center;
+}
+
+.page-home .dial__ring {
+  position: absolute;
+  inset: 0;
+  touch-action: none;
+  cursor: grab;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.page-home .dial.is-grabbed .dial__ring {
+  cursor: grabbing;
+}
+
+.page-home .dial__ring .ring__arc {
+  stroke-width: 4;
+  filter: drop-shadow(0 0 10px rgba(17, 188, 172, 0.35));
+}
+
+.page-home .dial__ring .ring__knob {
+  r: 6;
+  filter: drop-shadow(0 0 8px rgba(63, 214, 199, 0.65));
+  transition: r 140ms var(--ease);
+}
+
+.page-home .dial.is-grabbed .ring__knob {
+  r: 8;
+}
+
+/* The light the whole first scene is lit by: bright at the stroke,
+   gone within a ring's width. */
+.page-home .ring__bloom {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 190%;
+  height: 190%;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    transparent 0%,
+    rgba(17, 188, 172, 0.025) 30%,
+    rgba(17, 188, 172, 0.11) 52%,
+    rgba(17, 188, 172, 0.04) 64%,
+    transparent 82%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+.page-home .dial__readout {
+  position: relative;
+  margin: 0;
+  pointer-events: none;
+}
+
+.page-home .dial__time {
+  display: block;
+  font-size: calc(var(--dial-size) * 0.27);
+  font-weight: 350;
+  line-height: 1;
+  letter-spacing: -0.055em;
+  font-variant-numeric: tabular-nums;
+  font-optical-sizing: auto;
+  color: var(--fg);
+}
+
+.page-home .picker {
+  display: grid;
+  justify-items: center;
+  gap: 0.65rem;
+}
+
+.page-home .picker__label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+
+html[lang="he"] .page-home .picker__label {
+  letter-spacing: 0.04em;
+  text-transform: none;
+  font-size: 0.8125rem;
+}
+
+.page-home .picker__options {
+  display: inline-flex;
+  gap: 0.4rem;
+}
+
+.page-home .picker__option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0 1.05rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--fg-2);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.008em;
+  cursor: pointer;
+  transition: background-color 180ms ease, color 180ms ease, transform 110ms var(--ease-press);
+}
+
+.page-home .picker__option:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--fg);
+}
+
+.page-home .picker__option:active {
+  transform: scale(0.96);
+}
+
+.page-home .picker__option.is-chosen {
+  background: var(--teal);
+  color: var(--on-teal);
+}
+
+.page-home .picker__option:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+
+.page-home .threshold__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 1.1rem;
+  width: 100%;
+  max-width: 28rem;
+}
+
+.page-home .threshold__actions .store-note {
+  text-align: center;
+}
+
+/* On a phone the two actions are a stack, not a row: the primary
+   one gets the full width of attention, the other stays quiet. */
+@media (max-width: 559px) {
+  .page-home .threshold__actions {
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .page-home .threshold__actions .btn {
+    min-width: 15rem;
+  }
+}
+
+/* Short phones (and landscape) — the scene has to fit in one view,
+   so the instrument gives up size before the words do. */
+@media (max-width: 719px) and (max-height: 730px) {
+  .page-home .dial {
+    --dial-size: min(52vw, 29svh, 15rem);
+  }
+
+  .page-home .threshold__title {
+    font-size: clamp(1.85rem, 7vw, 2.35rem);
+  }
+
+  html[lang="he"] .page-home .threshold__title {
+    font-size: clamp(1.75rem, 6.6vw, 2.2rem);
+  }
+
+  .page-home .threshold__inner {
+    gap: clamp(0.8rem, 2.2vh, 1.4rem);
+  }
+
+  .page-home .picker__option {
+    min-height: 2.5rem;
+    padding-inline: 0.9rem;
+  }
+}
+
+@media (min-width: 720px) {
+  .page-home .dial {
+    --dial-size: min(42vw, 38svh, 22rem);
+  }
+}
+
+@media (min-width: 960px) {
+  .page-home .threshold__words {
+    max-width: 34rem;
+  }
+
+  .page-home .threshold__title {
+    font-size: clamp(2.9rem, 4.2vw, 4rem);
+    margin-bottom: 0.85rem;
+  }
+
+  html[lang="he"] .page-home .threshold__title {
+    font-size: clamp(2.7rem, 3.9vw, 3.7rem);
+  }
+
+  .page-home .threshold__lede {
+    font-size: 1.125rem;
+  }
+
+  .page-home .dial {
+    --dial-size: min(30vw, 40svh, 23rem);
+  }
+}
+
+/* Wide desktops: the room gets bigger, so the object in it does too.
+   Empty space only reads as composure when the subject holds its own. */
+@media (min-width: 1440px) {
+  .page-home {
+    --measure: 74rem;
+  }
+
+  .page-home .dial {
+    --dial-size: min(26vw, 44svh, 27rem);
+  }
+
+  .page-home .threshold__title {
+    font-size: clamp(3.4rem, 3.2vw, 4.4rem);
+  }
+
+  html[lang="he"] .page-home .threshold__title {
+    font-size: clamp(3rem, 2.9vw, 4rem);
+  }
+
+  .page-home .threshold__lede {
+    font-size: 1.25rem;
+  }
+}
+
+/* Landscape phones and short windows get their own arrangement rather
+   than a squeezed stack: the words read down one side, the dial holds
+   the other. */
+@media (min-width: 720px) and (max-height: 580px) {
+  .page-home .threshold__inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, max-content);
+    align-items: center;
+    justify-items: start;
+    text-align: start;
+    column-gap: clamp(1.5rem, 5vw, 4rem);
+    row-gap: clamp(0.75rem, 2.5vh, 1.5rem);
+  }
+
+  .page-home .threshold__words {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 22rem;
+  }
+
+  .page-home .threshold__instrument {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    min-width: 0;
+    justify-self: center;
+  }
+
+  .page-home .threshold__actions {
+    grid-column: 1;
+    grid-row: 2;
+    justify-content: flex-start;
+  }
+
+  .page-home .threshold__actions .store-note {
+    text-align: start;
+  }
+
+  .page-home .threshold__title {
+    font-size: clamp(1.9rem, 5.4vh, 2.6rem);
+    margin-bottom: 0.4rem;
+  }
+
+  html[lang="he"] .page-home .threshold__title {
+    font-size: clamp(1.8rem, 5vh, 2.4rem);
+  }
+
+  .page-home .threshold__lede {
+    font-size: 1rem;
+  }
+
+  .page-home .dial {
+    --dial-size: min(34vw, 50svh, 14rem);
+  }
+}
+
+/* ── Scene 2 · The setup ─────────────────────────────────────
+   Three quick beats on one rule. Setup is fast in the product,
+   so it is fast here: no cards, no illustrations, one artifact
+   each, drawn from the real interface.                          */
+
+.page-home .setup {
+  position: relative;
+  padding-block: clamp(4rem, 11vw, 8rem) clamp(3rem, 8vw, 6rem);
+  background: var(--ink-800);
+}
+
+.page-home .setup__title {
+  margin: 0 0 clamp(2.5rem, 6vw, 4rem);
+  font-size: clamp(1.9rem, 4.2vw, 3rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.032em;
+  max-width: 18ch;
+}
+
+html[lang="he"] .page-home .setup__title {
+  line-height: 1.26;
+  letter-spacing: 0;
+}
+
+.page-home .setup__beats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+
+.page-home .setup__beat {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 1.1rem;
+  row-gap: 0.4rem;
+  padding-block: 1.75rem;
+  border-top: 1px solid var(--hairline-soft);
+}
+
+.page-home .setup__beat:last-child {
+  border-bottom: 1px solid var(--hairline-soft);
+}
+
+.page-home .setup__index {
+  grid-row: 1;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1.9;
+  color: var(--teal);
+  font-variant-numeric: tabular-nums;
+}
+
+.page-home .setup__beat-title {
+  grid-row: 1;
+  margin: 0;
+  font-size: 1.1875rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+html[lang="he"] .page-home .setup__beat-title {
+  letter-spacing: 0;
+}
+
+.page-home .setup__beat-text {
+  grid-column: 2;
+  margin: 0;
+  max-width: 34ch;
+  font-size: 0.9375rem;
+  line-height: 1.58;
+  letter-spacing: -0.006em;
+  color: var(--fg-3);
+}
+
+/* Hebrew sets denser than Latin, so a comfortable line needs more
+   characters to reach the same physical measure. */
+html[lang="he"] .page-home .setup__beat-text {
+  line-height: 1.75;
+  letter-spacing: 0;
+  max-width: 39ch;
+}
+
+.page-home .setup__artifact {
+  grid-column: 2;
+  margin-top: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2rem;
+}
+
+/* The real duration chips, showing what you chose above. */
+.page-home .chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.72rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--fg-3);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: -0.006em;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.page-home .chip.is-chosen {
+  background: var(--teal-dim);
+  color: var(--teal-lift);
+}
+
+/* You, a thread, and the person you gave your word to. */
+.page-home .pair__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--teal);
+  flex: 0 0 auto;
+}
+
+.page-home .pair__dot--them {
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--fg-3);
+}
+
+.page-home .pair__thread {
+  width: 4.5rem;
+  height: 1px;
+  background: linear-gradient(to right, var(--teal), var(--fg-3));
+  flex: 0 0 auto;
+}
+
+[dir="rtl"] .page-home .pair__thread {
+  background: linear-gradient(to left, var(--teal), var(--fg-3));
+}
+
+/* The commitment, set the way the app sets it. */
+.page-home .setup__artifact--note {
+  gap: 0.15rem;
+}
+
+.page-home .note__text {
+  font-size: 0.9375rem;
+  color: var(--fg-2);
+  letter-spacing: -0.008em;
+}
+
+.page-home .note__caret {
+  width: 1.5px;
+  height: 1.05rem;
+  background: var(--teal);
+  border-radius: 1px;
+}
+
+@media (min-width: 880px) {
+  .page-home .setup__beats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: clamp(2rem, 4vw, 3.5rem);
+    border-top: 1px solid var(--hairline-soft);
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+
+  .page-home .setup__beat {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.5rem;
+    padding-block: 1.75rem 2.5rem;
+    border-top: 0;
+    align-content: start;
+  }
+
+  .page-home .setup__index,
+  .page-home .setup__beat-title {
+    grid-row: auto;
+  }
+
+  .page-home .setup__beat:last-child {
+    border-bottom: 0;
+  }
+
+  /* The index sits on the rule, like a tick on a timeline. */
+  .page-home .setup__beat::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    inset-inline-start: 0;
+    width: 2.25rem;
+    height: 1px;
+    background: var(--teal);
+  }
+
+  .page-home .setup__index {
+    line-height: 1.4;
+    margin-bottom: 0.9rem;
+  }
+
+  .page-home .setup__beat-title,
+  .page-home .setup__beat-text,
+  .page-home .setup__artifact {
+    grid-column: 1;
+  }
+
+  .page-home .setup__beat-title {
+    font-size: 1.3125rem;
+  }
+
+  .page-home .setup__beat-text {
+    font-size: 1rem;
+  }
+
+  .page-home .setup__artifact {
+    margin-top: 1.5rem;
+  }
+}
+
+/* ── Scene 3 · The session ───────────────────────────────────
+   The long, quiet stretch. Scrolling is the only clock: the
+   phone leaves, the ring becomes the room, the timer runs out.  */
+
+.page-home .session {
+  position: relative;
+  background: linear-gradient(to bottom, var(--ink-800) 0%, var(--ink-900) 22%, var(--ink-900) 100%);
+}
+
+.page-home .session__intro {
+  padding-block: clamp(3rem, 8vw, 6rem) clamp(1rem, 3vw, 2rem);
+}
+
+.page-home .session__title {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.9rem, 4.2vw, 3rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.032em;
+}
+
+html[lang="he"] .page-home .session__title {
+  line-height: 1.26;
+  letter-spacing: 0;
+}
+
+.page-home .session__lede {
+  margin: 0 0 0.3rem;
+  max-width: 34ch;
+  font-size: clamp(1rem, 2.4vw, 1.1875rem);
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  color: var(--fg-2);
+}
+
+.page-home .session__hint {
+  margin: 0;
+  max-width: 34ch;
+  font-size: clamp(1rem, 2.4vw, 1.1875rem);
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  color: var(--fg-3);
+}
+
+html[lang="he"] .page-home .session__lede,
+html[lang="he"] .page-home .session__hint {
+  line-height: 1.7;
+  letter-spacing: 0;
+}
+
+.page-home .session__track {
+  --shell: 1;
+  --growth: 0;
+  --grow-max: 1.1;
+  --session-progress: 0;
+  --time-out: 0;
+  --ring-out: 0;
+  --resolve-in: 0;
+  position: relative;
+  height: 320svh;
+}
+
+.page-home .session__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  justify-items: center;
+  align-items: center;
+  overflow: hidden;
+  padding-block: calc(var(--chrome) + 1rem)
+    calc(clamp(1.5rem, 5vh, 3.5rem) + var(--install-bar, 0px));
+}
+
+/* The room closes in as the session deepens. */
+.page-home .session__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(34% 26% at 50% 46%, rgba(17, 188, 172, 0.07), transparent 72%),
+    radial-gradient(70% 58% at 50% 46%, transparent 24%, rgba(3, 4, 6, 0.6) 74%, rgba(3, 4, 6, 0.95) 100%);
+  opacity: calc(0.35 + var(--growth) * 0.65);
+}
+
+.page-home .phone {
+  position: relative;
+  grid-row: 1;
+  margin: 0;
+  width: min(66vw, 15.5rem);
+  align-self: center;
+}
+
+.page-home .phone__chassis {
+  position: relative;
+  padding: 0.38rem;
+  border-radius: 2.5rem;
+}
+
+.page-home .phone__chassis::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(168deg, #3b3c47 0%, #17181f 40%, #0d0e13 100%);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.07),
+    0 34px 80px rgba(0, 0, 0, 0.6);
+  opacity: var(--shell);
+}
+
+.page-home .phone__screen {
+  position: relative;
+  aspect-ratio: 9 / 19.4;
+  border-radius: 2.15rem;
+  padding: 0.45rem 1.1rem 0.65rem;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+}
+
+.page-home .phone__screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--ink-900);
+  opacity: var(--shell);
+}
+
+.page-home .phone__screen > * {
+  position: relative;
+  z-index: 1;
+}
+
+.page-home .screen__chrome,
+.page-home .screen__label,
+.page-home .screen__commitment,
+.page-home .screen__indicator {
+  opacity: var(--shell);
+}
+
+.page-home .screen__chrome {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: 100%;
+  min-height: 1.6rem;
+}
+
+.page-home .screen__clock {
+  justify-self: start;
+  padding-inline-start: 0.3rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.page-home .screen__island {
+  width: 5rem;
+  height: 1.1rem;
+  border-radius: 999px;
+  background: #000;
+}
+
+.page-home .screen__battery {
+  justify-self: end;
+  width: 1.4rem;
+  height: 0.5rem;
+  margin-inline-end: 0.3rem;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.page-home .screen__label {
+  margin: 1.1rem 0 0;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+
+html[lang="he"] .page-home .screen__label {
+  letter-spacing: 0.03em;
+  text-transform: none;
+  font-size: 0.7rem;
+}
+
+/* The ring in the screen is the same object as the dial above. */
+.page-home .live {
+  position: relative;
+  width: 78%;
+  aspect-ratio: 1;
+  container-type: inline-size;
+  display: grid;
+  place-items: center;
+  transform: scale(calc(1 + var(--growth) * var(--grow-max)));
+  opacity: calc(1 - var(--ring-out, 0) * 0.86);
+  will-change: transform;
+}
+
+.page-home .live .ring {
+  position: absolute;
+  inset: 0;
+}
+
+/* The stroke thins as the ring scales up, so a room-sized ring
+   stays as fine a line as a phone-sized one. */
+.page-home .live .ring__track {
+  stroke-width: calc(3 - var(--growth) * 1.5);
+}
+
+.page-home .live .ring__arc {
+  stroke-width: calc(3.6 - var(--growth) * 1.75);
+  filter: drop-shadow(0 0 12px rgba(17, 188, 172, 0.4));
+}
+
+.page-home .live__time {
+  position: relative;
+  margin: 0;
+  font-size: 2.1rem;
+  font-size: 26cqi;
+  font-weight: 350;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+  opacity: calc(1 - var(--time-out, 0));
+}
+
+.page-home .screen__commitment {
+  margin: 0 0 0.9rem;
+  max-width: 11rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--fg-3);
+}
+
+.page-home .screen__indicator {
+  width: 6.5rem;
+  height: 0.25rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.26);
+}
+
+/* One voice, one line at a time, in the dark. */
+.page-home .session__voice {
+  position: relative;
+  grid-row: 2;
+  display: grid;
+  width: min(100% - var(--gutter) * 2, 34rem);
+  align-self: end;
+  min-height: 4.5rem;
+}
+
+.page-home .session__line {
+  grid-area: 1 / 1;
+  margin: 0;
+  text-align: center;
+  font-size: clamp(1.25rem, 5vw, 2rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.028em;
+  color: var(--fg-2);
+  opacity: var(--line-in, 0);
+  transform: translateY(calc((1 - var(--line-in, 0)) * 8px));
+  text-wrap: balance;
+}
+
+html[lang="he"] .page-home .session__line {
+  line-height: 1.4;
+  letter-spacing: 0;
+}
+
+.page-home .session__line--accent {
+  color: var(--teal-lift);
+}
+
+.page-home .session__resolve {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  translate: 0 -50%;
+  display: grid;
+  justify-items: center;
+  gap: 0.3rem;
+  opacity: var(--resolve-in);
+  pointer-events: none;
+}
+
+.page-home .resolve__title {
+  margin: 0;
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--fg-2);
+}
+
+.page-home .resolve__stat {
+  margin: 0.2rem 0 0;
+  font-size: clamp(3rem, 12vw, 5.5rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+  color: var(--teal);
+}
+
+.page-home .resolve__sub {
+  margin: 0;
+  font-size: clamp(0.9375rem, 2.6vw, 1.0625rem);
+  color: var(--fg-3);
+}
+
+@media (min-width: 880px) {
+  .page-home .session__track {
+    --grow-max: 2;
+    height: 360svh;
+  }
+
+  .page-home .phone {
+    width: min(26vw, 17.5rem);
+  }
+
+  .page-home .session__voice {
+    min-height: 5.5rem;
+  }
+}
+
+/* ── Scene 4 · The outcome ───────────────────────────────────
+   The light comes back. Two words carry the whole proposition.  */
+
+.page-home .outcome {
+  position: relative;
+  padding-block: clamp(5rem, 14vw, 9rem);
+  background: linear-gradient(to bottom, var(--ink-900), var(--ink-800) 55%);
+}
+
+.page-home .outcome__inner {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+  align-items: end;
+}
+
+.page-home .outcome__title {
+  margin: 0;
+  font-size: clamp(2.6rem, 10vw, 5rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  font-optical-sizing: auto;
+}
+
+html[lang="he"] .page-home .outcome__title {
+  line-height: 1.14;
+  letter-spacing: -0.004em;
+}
+
+.page-home .outcome__text {
+  margin: 0;
+  max-width: 36ch;
+  font-size: clamp(1rem, 2.4vw, 1.1875rem);
+  line-height: 1.6;
+  letter-spacing: -0.008em;
+  color: var(--fg-3);
+}
+
+html[lang="he"] .page-home .outcome__text {
+  line-height: 1.75;
+  letter-spacing: 0;
+  max-width: 42ch;
+}
+
+@media (min-width: 880px) {
+  .page-home .outcome__inner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  .page-home .outcome__text {
+    max-width: 30ch;
+    padding-bottom: 0.7rem;
+  }
+}
+
+/* ── Scene 5 · Why ───────────────────────────────────────────── */
+
+.page-home .reasons {
+  padding-block: clamp(3rem, 8vw, 5rem) clamp(4rem, 10vw, 7rem);
+  background: var(--ink-800);
+}
+
+.page-home .reasons__title {
+  margin: 0 0 clamp(2rem, 5vw, 3.25rem);
+  font-size: clamp(1.9rem, 4.2vw, 3rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.032em;
+}
+
+html[lang="he"] .page-home .reasons__title {
+  line-height: 1.26;
+  letter-spacing: 0;
+}
+
+.page-home .reasons__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+
+.page-home .reasons__item {
+  padding-block: 1.5rem;
+  border-top: 1px solid var(--hairline-soft);
+}
+
+.page-home .reasons__item:last-child {
+  border-bottom: 1px solid var(--hairline-soft);
+}
+
+.page-home .reasons__heading {
+  margin: 0 0 0.4rem;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.018em;
+}
+
+html[lang="he"] .page-home .reasons__heading {
+  letter-spacing: 0;
+}
+
+.page-home .reasons__text {
+  margin: 0;
+  max-width: 40ch;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  letter-spacing: -0.006em;
+  color: var(--fg-3);
+}
+
+html[lang="he"] .page-home .reasons__text {
+  line-height: 1.75;
+  letter-spacing: 0;
+  max-width: 46ch;
+}
+
+@media (min-width: 880px) {
+  .page-home .reasons__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(3rem, 7vw, 6rem);
+  }
+
+  .page-home .reasons__item {
+    padding-block: 1.75rem;
+  }
+
+  .page-home .reasons__item:nth-child(2) {
+    border-top: 1px solid var(--hairline-soft);
+  }
+
+  .page-home .reasons__item:nth-child(3) {
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+
+  .page-home .reasons__heading {
+    font-size: 1.125rem;
+  }
+
+  .page-home .reasons__text {
+    font-size: 1rem;
+  }
+}
+
+/* ── Scene 6 · Close ─────────────────────────────────────────
+   The same pool of light as the first scene: you end where you
+   started, with the decision in front of you.                   */
+
+.page-home .close {
+  position: relative;
+  isolation: isolate;
+  padding-block: clamp(4.5rem, 12vw, 8rem);
+  background: var(--ink-850);
+  overflow: hidden;
+}
+
+.page-home .close::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(52% 70% at 50% 46%, rgba(17, 188, 172, 0.13), transparent 66%);
+  pointer-events: none;
+}
+
+.page-home .close__inner {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 0.9rem;
+  max-width: 34rem;
+}
+
+.page-home .close__title {
+  margin: 0;
+  font-size: clamp(1.9rem, 5.4vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.032em;
+  text-wrap: balance;
+}
+
+html[lang="he"] .page-home .close__title {
+  line-height: 1.26;
+  letter-spacing: 0;
+}
+
+.page-home .close__lead {
+  margin: 0 0 0.6rem;
+  font-size: clamp(1rem, 2.4vw, 1.125rem);
+  line-height: 1.6;
+  letter-spacing: -0.008em;
+  color: var(--fg-3);
+  text-wrap: balance;
+}
+
+html[lang="he"] .page-home .close__lead {
+  line-height: 1.75;
+  letter-spacing: 0;
+}
+
+.page-home .close .store-note {
+  text-align: center;
+}
+
+/* ── Contact + footer ───────────────────────────────────────── */
+
+.page-home .contact {
+  padding-block: clamp(3rem, 8vw, 4.5rem) clamp(1.5rem, 4vw, 2.5rem);
+  background: var(--ink-800);
+}
+
+.page-home .contact__inner {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.page-home .contact__title {
+  margin: 0 0 0.3rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.018em;
+}
+
+html[lang="he"] .page-home .contact__title {
+  letter-spacing: 0;
+}
+
+.page-home .contact__lead {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--fg-3);
+}
+
+.page-home .contact__email {
+  margin: 0;
+  font-size: 1.0625rem;
+}
+
+.page-home .contact__email a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--fg);
+  font-weight: 500;
+  text-decoration: none;
+  letter-spacing: -0.012em;
+}
+
+.page-home .contact__email a:hover,
+.page-home .contact__email a:focus-visible {
+  color: var(--teal-lift);
+  text-decoration: none;
+}
+
+.page-home .landing-footer {
+  padding-block: clamp(1.5rem, 4vw, 2.5rem)
+    calc(2.5rem + env(safe-area-inset-bottom, 0px) + var(--install-bar, 0px));
+  background: var(--ink-800);
+}
+
+.page-home .landing-footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--hairline-soft);
+}
+
+.page-home .landing-footer__copy {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--fg-3);
+}
+
+.page-home .landing-footer__copy [lang="en"] {
+  white-space: nowrap;
+}
+
+.page-home .landing-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+
+.page-home .landing-footer__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  font-size: 0.8125rem;
+  color: var(--fg-3);
+  text-decoration: none;
+}
+
+.page-home .landing-footer__links a:hover,
+.page-home .landing-footer__links a:focus-visible {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+/* The tail of the page uses the same focus ring as the top of it. */
+.page-home .landing-footer__links a:focus-visible,
+.page-home .contact__email a:focus-visible,
+.page-home .brand:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+@media (min-width: 880px) {
+  .page-home .landing-footer__inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem 2rem;
+  }
+
+  .page-home .landing-footer__links a {
+    min-height: 0;
+  }
+}
+
+/* ── Android install bar ─────────────────────────────────────
+   Real functionality, presented as floating chrome rather than
+   a slab: the page keeps its composition behind it.            */
+
+.page-home .android-play-banner {
+  position: sticky;
+  bottom: 0;
+  z-index: 60;
+  padding: 0.7rem var(--gutter) calc(0.7rem + env(safe-area-inset-bottom, 0px));
+  background: rgba(10, 11, 15, 0.8);
+  backdrop-filter: blur(24px) saturate(170%);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.page-home .android-play-banner__inner {
+  width: min(100%, var(--measure));
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+}
+
+.page-home .android-play-banner__title {
+  margin: 0;
+  text-wrap: balance;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+}
+
+.page-home .android-play-banner__action {
+  flex-shrink: 0;
+  min-height: 2.75rem;
+  padding-inline: 1.15rem;
+  white-space: nowrap;
+}
+
+/* Keep it one compact row even on the narrowest phones. */
+@media (max-width: 480px) {
+  .page-home .android-play-banner__inner,
+  [dir="rtl"] .page-home .android-play-banner__inner {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .page-home .android-play-banner__title {
+    font-size: 0.8125rem;
+    max-width: 24ch;
+  }
+
+  .page-home .android-play-banner__action {
+    width: auto;
+  }
+}
+
+/* ── Entrances ───────────────────────────────────────────────
+   Only the two list-like scenes get one, and only once. The
+   hero never animates in: it must be touchable immediately.     */
+
+@media (prefers-reduced-motion: no-preference) {
+  .js .page-home [data-enter] {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.55s var(--ease), transform 0.55s var(--ease);
+  }
+
+  .js .page-home [data-enter].is-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Accessibility preferences ──────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .page-home *,
+  .page-home *::before,
+  .page-home *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .page-home [data-enter] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .page-home .btn:active,
+  .page-home .picker__option:active {
+    transform: none;
+    filter: brightness(0.88);
+  }
+
+  /* The session is composed, not animated: the phone stays whole,
+     all three lines are present, and the result is shown. */
+  .page-home .session__track {
+    height: auto;
+    --shell: 1;
+    --growth: 0;
+  }
+
+  .page-home .session__stage {
+    position: static;
+    height: auto;
+    gap: clamp(2rem, 6vw, 3.5rem);
+    padding-block: clamp(2rem, 6vw, 4rem) clamp(3rem, 8vw, 5rem);
+  }
+
+  .page-home .session__voice {
+    display: grid;
+    gap: 0.5rem;
+    min-height: 0;
+  }
+
+  .page-home .session__line {
+    grid-area: auto;
+    opacity: 1;
+    transform: none;
+  }
+
+  .page-home .session__resolve {
+    position: static;
+    translate: none;
+    opacity: 1;
+    margin-top: 1rem;
+  }
+
+  .page-home .live__time {
+    opacity: 1;
+  }
+
+  .page-home .live {
+    will-change: auto;
+  }
+}
+
+/* Without motion the session still has to be a composition, not a stack:
+   the phone sits beside the words it belongs to. */
+@media (prefers-reduced-motion: reduce) and (min-width: 880px) {
+  .page-home .session__stage {
+    width: min(100% - var(--gutter) * 2, var(--measure));
+    margin-inline: auto;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-items: center;
+    column-gap: clamp(3rem, 7vw, 6rem);
+    row-gap: 1.5rem;
+  }
+
+  .page-home .phone {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: min(22vw, 15rem);
+  }
+
+  .page-home .session__voice {
+    grid-column: 2;
+    grid-row: 1;
+    width: auto;
+    justify-self: start;
+    align-self: end;
+    gap: 0.9rem;
+  }
+
+  .page-home .session__line {
+    text-align: start;
+  }
+
+  .page-home .session__resolve {
+    grid-column: 2;
+    grid-row: 2;
+    justify-items: start;
+    justify-self: start;
+    align-self: start;
+    margin-top: 0;
+  }
+
+  .page-home .resolve__stat {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .page-home .landing-header.is-floating,
+  .page-home .landing-nav,
+  .page-home .android-play-banner {
+    background: var(--ink-850);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .page-home .nav-scrim {
+    background: #000;
+  }
+
+  .page-home .threshold__room,
+  .page-home .session__glow,
+  .page-home .ring__bloom,
+  .page-home .close::before {
+    opacity: 0.4;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .page-home {
+    --fg-2: #ececf1;
+    --fg-3: #c0c2cb;
+    --hairline-soft: rgba(255, 255, 255, 0.28);
+  }
+
+  .page-home .landing-header.is-floating,
+  .page-home .landing-nav,
+  .page-home .android-play-banner {
+    background: #000;
+    border-bottom: 1px solid #fff;
+  }
+
+  .page-home .picker__option {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+  }
+
+  .page-home .ring__track {
+    stroke: rgba(255, 255, 255, 0.3);
+  }
+}
