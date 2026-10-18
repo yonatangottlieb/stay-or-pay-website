@@ -56,7 +56,7 @@
           <span class="brand-name">Stay or Pay</span>
         </a>
 
-        <nav class="landing-nav" id="site-nav" aria-label="Primary">
+        <nav class="landing-nav" id="site-nav" data-i18n-aria="nav.primary" aria-label="Primary">
           <a class="landing-nav__link" href="#how-it-works" data-i18n="nav.howItWorks">How it works</a>
           <a class="landing-nav__link" href="#why" data-i18n="nav.about">About</a>
           <a class="landing-nav__link" href="#contact" data-i18n="nav.contact">Contact</a>
@@ -65,7 +65,7 @@
         </nav>
 
         <div class="landing-header__tools">
-          <nav class="lang-switch" aria-label="Language">
+          <nav class="lang-switch" data-i18n-aria="nav.lang" aria-label="Language">
             <button type="button" class="lang-switch__btn is-active" data-set-locale="en" aria-pressed="true">EN</button>
             <button type="button" class="lang-switch__btn" data-set-locale="he" aria-pressed="false">HE</button>
           </nav>
@@ -84,9 +84,9 @@
       </div>
     </header>
 
-    <div class="nav-scrim" data-nav-scrim hidden></div>
+    <div class="nav-scrim" data-nav-scrim hidden aria-hidden="true"></div>
 
-    <main id="main">
+    <main id="main" tabindex="-1">
       <!-- ─────────────────────────  THE DECISION  ───────────────────────── -->
       <section class="threshold" id="hero" aria-labelledby="hero-heading">
         <div class="threshold__room" aria-hidden="true"></div>
@@ -108,7 +108,7 @@
                 <svg class="ring" viewBox="0 0 220 220" focusable="false">
                   <circle class="ring__track" cx="110" cy="110" r="100" pathLength="100" />
                   <circle class="ring__arc" cx="110" cy="110" r="100" pathLength="100" />
-                  <circle class="ring__knob" cx="110" cy="10" r="5.5" />
+                  <circle class="ring__knob" cx="210" cy="110" r="5.5" />
                 </svg>
                 <span class="ring__bloom"></span>
               </div>
@@ -381,6 +381,7 @@
           <a data-doc-link="terms" href="/terms/en/" data-i18n="footer.terms">Terms of Service</a>
           <a href="/data-deletion/" data-i18n="footer.deleteAccount">Delete Account and Data</a>
           <a data-doc-link="data-deletion" href="/data-deletion/en/" data-i18n="footer.dataDeletion">Data Deletion Policy</a>
+          <a data-doc-link="accessibility" href="/accessibility/en/" data-i18n="footer.accessibility">Accessibility statement</a>
           <a href="mailto:support@stayorpay.app" dir="ltr">support@stayorpay.app</a>
         </nav>
       </div>

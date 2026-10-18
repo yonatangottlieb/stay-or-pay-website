@@ -36,6 +36,16 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://stayorpay.app/accessibility/en/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://stayorpay.app/accessibility/he/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://stayorpay.app/data-deletion/he/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

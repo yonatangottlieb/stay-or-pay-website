@@ -288,6 +288,15 @@
     }
 
     refreshPlayStoreControls();
+
+    var skipLink = document.querySelector(".skip-link");
+    var main = document.getElementById("main");
+    if (skipLink && main) {
+      skipLink.addEventListener("click", function () {
+        main.setAttribute("tabindex", "-1");
+        main.focus({ preventScroll: false });
+      });
+    }
   }
 
   initInvitePage();

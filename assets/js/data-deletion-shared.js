@@ -6,6 +6,8 @@
 
   var TRANSLATIONS = {
     en: {
+      skip: "Skip to content",
+      "footer.accessibility": "Accessibility statement",
       "page.title": "Delete your account — STAY OR PAY",
       "page.eyebrow": "Account deletion",
       "signedOut.title": "Delete your Stay or Pay account",
@@ -28,6 +30,7 @@
       "delete.confirmTitle": "Delete your account permanently?",
       "delete.confirmBody":
         "This cannot be undone. Type DELETE to confirm.",
+      "delete.confirmLabel": "Type DELETE to confirm",
       "delete.confirmPlaceholder": "Type DELETE",
       "delete.confirmAction": "Delete my account",
       "delete.cancel": "Cancel",
@@ -46,6 +49,8 @@
       "error.retry": "Try again",
     },
     he: {
+      skip: "דלג לתוכן",
+      "footer.accessibility": "הצהרת נגישות",
       "page.title": "מחיקת חשבון — STAY OR PAY",
       "page.eyebrow": "מחיקת חשבון",
       "signedOut.title": "מחיקת חשבון Stay or Pay",
@@ -67,6 +72,7 @@
       "delete.button": "מחיקת החשבון",
       "delete.confirmTitle": "למחוק את החשבון לצמיתות?",
       "delete.confirmBody": "לא ניתן לבטל. הקלד/י DELETE לאישור.",
+      "delete.confirmLabel": "הקלד/י DELETE לאישור",
       "delete.confirmPlaceholder": "הקלד/י DELETE",
       "delete.confirmAction": "מחק/י את החשבון שלי",
       "delete.cancel": "ביטול",
@@ -131,12 +137,13 @@
       }
     });
 
-    var privacyLink = document.getElementById("privacy-link");
-    if (privacyLink && global.StayOrPayI18n) {
-      privacyLink.setAttribute(
-        "href",
-        global.StayOrPayI18n.buildDocPath("privacy", normalized)
-      );
+    if (global.StayOrPayI18n) {
+      document.querySelectorAll("[data-doc-link]").forEach(function (anchor) {
+        var slug = anchor.getAttribute("data-doc-link");
+        if (slug) {
+          anchor.setAttribute("href", global.StayOrPayI18n.buildDocPath(slug, normalized));
+        }
+      });
     }
 
     global.localStorage.setItem("stayorpay.locale", normalized);

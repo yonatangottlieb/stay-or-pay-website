@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/assets/css/style.css" />
   </head>
   <body class="page-landing page-invite">
+    <a class="skip-link" href="#main">Skip to content</a>
     <header class="landing-header">
       <div class="landing-header__inner">
         <a class="brand" href="/" aria-label="STAY OR PAY home">
@@ -30,7 +31,7 @@
       </div>
     </header>
 
-    <main id="main" class="invite-main">
+    <main id="main" class="invite-main" tabindex="-1">
       <section class="invite-card" id="invite-content">
         <p class="eyebrow" data-i18n="invite.eyebrow">Partner invite</p>
         <h1 class="invite-card__title" data-i18n="invite.title">
@@ -114,6 +115,13 @@
         >
       </section>
     </main>
+
+    <footer class="deletion-footer invite-footer">
+      <nav aria-label="Footer">
+        <a href="/accessibility/en/">Accessibility statement</a>
+        <a href="/">Home</a>
+      </nav>
+    </footer>
 
     <aside
       id="android-play-banner"

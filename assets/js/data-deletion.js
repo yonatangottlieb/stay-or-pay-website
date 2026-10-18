@@ -23,12 +23,25 @@ let locale = StayOrPayDataDeletion.resolveLocale();
 let supabase = null;
 let isDeleting = false;
 let isSigningIn = false;
+let dialogReturnFocus = null;
+
+function announceStatus(message) {
+  const live = document.getElementById("deletion-status");
+  if (live && message) {
+    live.textContent = message;
+  }
+}
 
 function showOnly(section) {
   [ui.signedOut, ui.signedIn, ui.deleting, ui.success, ui.error].forEach(function (node) {
     if (!node) return;
     node.hidden = node !== section;
   });
+  if (section === ui.deleting) {
+    announceStatus(StayOrPayDataDeletion.t(locale, "delete.inProgress"));
+  } else if (section === ui.success) {
+    announceStatus(StayOrPayDataDeletion.t(locale, "success.title"));
+  }
 }
 
 function setErrorMessage(key) {
@@ -91,9 +104,15 @@ async function signInWithProvider(provider) {
 
 function openConfirmDialog() {
   if (!ui.confirmDialog) return;
-  ui.confirmDialog.hidden = false;
+  dialogReturnFocus = document.activeElement;
+  if (typeof ui.confirmDialog.showModal === "function") {
+    ui.confirmDialog.showModal();
+  } else {
+    ui.confirmDialog.hidden = false;
+  }
   if (ui.confirmInput) {
     ui.confirmInput.value = "";
+    ui.confirmInput.removeAttribute("aria-invalid");
     ui.confirmInput.focus();
   }
   updateConfirmButton();
@@ -101,7 +120,14 @@ function openConfirmDialog() {
 
 function closeConfirmDialog() {
   if (!ui.confirmDialog) return;
+  if (ui.confirmDialog.open) {
+    ui.confirmDialog.close();
+  }
   ui.confirmDialog.hidden = true;
+  if (dialogReturnFocus && typeof dialogReturnFocus.focus === "function") {
+    dialogReturnFocus.focus();
+  }
+  dialogReturnFocus = null;
 }
 
 function updateConfirmButton() {
@@ -189,13 +215,29 @@ function bindEvents() {
     ui.confirmCancel.addEventListener("click", closeConfirmDialog);
   }
 
+  if (ui.confirmDialog) {
+    ui.confirmDialog.addEventListener("cancel", function (event) {
+      event.preventDefault();
+      closeConfirmDialog();
+    });
+    ui.confirmDialog.addEventListener("close", function () {
+      ui.confirmDialog.hidden = true;
+    });
+  }
+
   if (ui.confirmInput) {
     ui.confirmInput.addEventListener("input", updateConfirmButton);
   }
 
   if (ui.confirmSubmit) {
     ui.confirmSubmit.addEventListener("click", function () {
-      if (!StayOrPayDataDeletion.canConfirmDelete(ui.confirmInput.value)) return;
+      if (!ui.confirmInput) return;
+      const valid = StayOrPayDataDeletion.canConfirmDelete(ui.confirmInput.value);
+      ui.confirmInput.setAttribute("aria-invalid", valid ? "false" : "true");
+      if (!valid) {
+        ui.confirmInput.focus();
+        return;
+      }
       deleteAccount();
     });
   }
@@ -210,6 +252,15 @@ function bindEvents() {
 async function boot() {
   locale = StayOrPayDataDeletion.applyLocale(locale);
   bindEvents();
+
+  const skipLink = document.querySelector(".skip-link");
+  const main = document.getElementById("main");
+  if (skipLink && main) {
+    skipLink.addEventListener("click", function () {
+      main.setAttribute("tabindex", "-1");
+      main.focus({ preventScroll: false });
+    });
+  }
 
   const params = new URLSearchParams(window.location.search);
   if (params.get("auth_error") === "1") {

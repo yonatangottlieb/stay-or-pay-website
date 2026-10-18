@@ -23,6 +23,8 @@
       "nav.contact": "Contact",
       "nav.privacy": "Privacy",
       "nav.terms": "Terms",
+      "nav.primary": "Primary navigation",
+      "nav.lang": "Language",
       "nav.menu": "Menu",
       "nav.close": "Close menu",
       "hero.headline":
@@ -93,6 +95,7 @@
       "footer.terms": "Terms of Service",
       "footer.dataDeletion": "Data Deletion Policy",
       "footer.deleteAccount": "Delete Account and Data",
+      "footer.accessibility": "Accessibility statement",
       "meta.title": "Stay or Pay — Stay focused. Or pay.",
       "meta.description":
         "Stay or Pay turns your focus sessions into real commitments. Set a timer, stay until it ends, and keep your word. Download from Google Play.",
@@ -106,6 +109,8 @@
       "nav.contact": "יצירת קשר",
       "nav.privacy": "פרטיות",
       "nav.terms": "תנאים",
+      "nav.primary": "ניווט ראשי",
+      "nav.lang": "שפה",
       "nav.menu": "תפריט",
       "nav.close": "סגירת תפריט",
       "hero.headline":
@@ -175,6 +180,7 @@
       "footer.terms": "תנאי שימוש",
       "footer.dataDeletion": "מדיניות מחיקת נתונים",
       "footer.deleteAccount": "מחיקת חשבון ונתונים",
+      "footer.accessibility": "הצהרת נגישות",
       "meta.title": "Stay or Pay — נשארים בפוקוס. או משלמים.",
       "meta.description":
         "Stay or Pay הופכת כל סשן פוקוס להתחייבות אמיתית. מגדירים זמן, נשארים עד הסוף ועומדים במילה שלכם. הורדה מ־Google Play.",
@@ -327,6 +333,15 @@
 
   applyLocale(resolveInitialLocale());
 
+  var skipLink = document.querySelector(".skip-link");
+  var mainLandmark = document.getElementById("main");
+  if (skipLink && mainLandmark) {
+    skipLink.addEventListener("click", function () {
+      mainLandmark.setAttribute("tabindex", "-1");
+      mainLandmark.focus({ preventScroll: false });
+    });
+  }
+
   document.querySelectorAll("[data-set-locale]").forEach(function (button) {
     button.addEventListener("click", function () {
       var locale = button.getAttribute("data-set-locale");
@@ -361,6 +376,7 @@
       nav.removeAttribute("aria-hidden");
       if (scrim) {
         scrim.hidden = true;
+        scrim.setAttribute("aria-hidden", "true");
       }
       return;
     }
@@ -374,12 +390,14 @@
       nav.removeAttribute("aria-hidden");
       if (scrim) {
         scrim.hidden = false;
+        scrim.setAttribute("aria-hidden", "false");
       }
     } else {
       nav.setAttribute("inert", "");
       nav.setAttribute("aria-hidden", "true");
       if (scrim) {
         scrim.hidden = true;
+        scrim.setAttribute("aria-hidden", "true");
       }
     }
   }
