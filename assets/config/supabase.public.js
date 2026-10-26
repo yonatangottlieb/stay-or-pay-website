@@ -3,6 +3,6 @@
  * Overridden in CI when SUPABASE_URL / SUPABASE_ANON_KEY secrets are set.
  */
 window.StayOrPaySupabaseConfig = {
-  url: "https://cevugjzambfhdimirrch.supabase.co",
+  url: "https://stayorpay.supabase.co",
   anonKey: "sb_publishable_f399vELXsWf0K6bnYYwtHQ_R6x-lIds",
 };
